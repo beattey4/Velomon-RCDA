@@ -1,16 +1,5 @@
- <!DOCTYPE html>
-<h
-    case 'bizinc': {
-      const biAge = prof.p1Age;
-      extra = {
-        amount:   parseFloat(document.getElementById(`bizinc-amount-${id}`)?.value) || 0,
-        startAge: parseInt(document.getElementById(`bizinc-start-${id}`)?.value) || biAge,
-        endAge:   parseInt(document.getElementById(`bizinc-end-${id}`)?.value) || prof.p1Terminal,
-        cola:     parseFloat(document.getElementById(`bizinc-cola-${id}`)?.value) || 0,
-        taxTx:    document.getElementById(`bizinc-tax-${id}`)?.value || 'ordinary',
-      };
-      break;
-    }tml lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -6676,8 +6665,6 @@ function renderComparisonTable(results, totals, bestIdx) {
 // CLIENT MODE — Data collection, serialization, import/export
 // ═══════════════════════════════════════════════════════════════════════════
 
-const ZAPIER_CLIENT_WEBHOOK = 'https://hooks.zapier.com/hooks/catch/16206660/uvvye2n/';
-
 // Detect mode from URL parameter
 const _urlParams  = new URLSearchParams(window.location.search);
 const _clientMode = _urlParams.get('mode') === 'client';
@@ -6778,75 +6765,83 @@ function serializeClientData() {
 // ── Client Submit: encode full data, POST to Zapier with advisor link ────────
 function submitClientData() {
   const btn = document.getElementById('client-submit-btn');
-  if (btn) { btn.disabled = true; btn.textContent = 'Submitting…'; }
-
-  const data = serializeClientData();
-
-  // Build the encoded advisor link — full data embedded in the URL
-  let advisorLink = '';
-  try {
-    const json    = JSON.stringify(data);
-    const encoded = btoa(encodeURIComponent(json));
-    // Use current page URL as the base (works whether hosted or local file)
-    // Always point advisor link to RCDA.html, not the client form
-    const base = window.location.href.split('?')[0].replace('RCDAClient.html', 'RCDA.html').replace('RCDA-Client.html', 'RCDA.html');
-    advisorLink = base + '?data=' + encoded;
-  } catch(e) {
-    console.warn('Could not encode advisor link:', e);
+  if (btn) {
+    btn.disabled = true;
+    btn.textContent = 'Preparing File…';
   }
 
-  // Build short client ID from timestamp for Google Sheets lookup
-  const clientKey = Date.now().toString();
-  // Short advisor link uses clientId instead of encoded data
-  const shortBase = window.location.href.split('?')[0]
-    .replace('RCDAClient.html', 'RCDA.html')
-    .replace('RCDA-Client.html', 'RCDA.html');
-  const shortAdvisorLink = shortBase + '?clientId=' + clientKey;
+  try {
+    const data = serializeClientData();
 
-  // POST to Zapier — includes both short link and full data
-  fetch(ZAPIER_CLIENT_WEBHOOK, {
-    method:  'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      client_name:   data.clientName,
-      submitted_at:  data.submittedAt,
-      source:        'RCDA Client Input Form',
-      income_count:  data.incomes.length,
-      asset_count:   data.assets.length,
-      filing_status: data.fields['p1_filing'] || '',
-      state:         data.fields['res_state']  || '',
-      advisor_link:  shortAdvisorLink,
-      full_data:     advisorLink,
-      client_key:    clientKey,
-      note:          'Click advisor_link to open RCDA with client data pre-loaded.',
-    }),
-    mode: 'no-cors',
-  })
-  .then(function() {
-    // no-cors means we can not read the response — assume success
-    showClientThankYou();
-  })
-  .catch(function() {
-    // Network error — still show thank-you, Zapier likely got it
-    showClientThankYou();
-  });
+    const safeName = (data.clientName || 'Client')
+      .trim()
+      .replace(/[^a-z0-9]+/gi, '-')
+      .replace(/^-+|-+$/g, '') || 'Client';
+
+    const dateStamp = new Date().toISOString().slice(0, 10);
+    const filename = safeName + '-RCIA-Intake-' + dateStamp + '.rcda';
+    const blob = new Blob(
+      [JSON.stringify(data, null, 2)],
+      { type: 'application/json;charset=utf-8' }
+    );
+
+    const downloadUrl = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = downloadUrl;
+    link.download = filename;
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+
+    setTimeout(function() {
+      URL.revokeObjectURL(downloadUrl);
+    }, 1500);
+
+    showClientThankYou(filename);
+  } catch (err) {
+    console.error('RCIA intake file creation failed:', err);
+    if (btn) {
+      btn.disabled = false;
+      btn.textContent = 'Submit My Information';
+    }
+    alert('Your file could not be created. Please try again or contact your advisor.');
+  }
 }
 
-function showClientThankYou() {
+function showClientThankYou(filename) {
   const btn  = document.getElementById('client-submit-btn');
   const wrap = document.getElementById('client-submit-wrap');
+  const thank = document.getElementById('client-thankyou');
+
+  if (btn) {
+    btn.disabled = true;
+    btn.textContent = 'File Downloaded';
+  }
+
   if (wrap) {
     const h3 = wrap.querySelector('h3');
     const p  = wrap.querySelector('p');
-    if (h3) h3.style.display = 'none';
-    if (p)  p.style.display  = 'none';
-    if (btn) btn.style.display = 'none';
+    if (h3) h3.textContent = 'Your RCIA intake file is ready';
+    if (p) {
+      p.innerHTML =
+        'A file named <strong>' + filename + '</strong> has been downloaded to your computer. ' +
+        'Please attach that file to an email and send it to your advisor. ' +
+        'The file contains your intake information only; it does not contain calculations or results.';
+    }
   }
-  const ty = document.getElementById('client-thankyou');
-  if (ty) ty.classList.add('show');
+
+  if (thank) {
+    thank.classList.add('show');
+    const h4 = thank.querySelector('h4');
+    const p = thank.querySelector('p');
+    if (h4) h4.textContent = 'Download complete';
+    if (p) {
+      p.textContent =
+        'Please email the downloaded .rcda file to your advisor. Keep this page open until you confirm the file appears in your Downloads folder.';
+    }
+  }
 }
 
-// ── Shared restore function — used by both file import and ?data= link ────────
 function restoreClientData(data) {
   const status = document.getElementById('import-status');
 
