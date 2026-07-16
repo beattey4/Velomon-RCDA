@@ -23,7 +23,12 @@
   --vblue:      #184274;
   --vblue-mid:  #1e5491;
   --vblue-lt:   #2a6ab5;
+  --vblue-dark: #184274;
+  --text-muted: #6a7f99;
   --vorange:    #F37C21;
+  --vblue-dark: #184274;
+  --vblue-light:#2563eb;
+  --text-muted: #6a7f99;
   --vorange-lt: #f9a05a;
   --white:      #ffffff;
   --cream:      #f8f9fb;
@@ -660,6 +665,272 @@ body {
   .client-thankyou.show { display: block; }
   .client-thankyou h4 { font-family: var(--serif); font-size: 18px; color: #1a7a3e; margin-bottom: 6px; }
   .client-thankyou p { font-size: 14px; color: var(--text-mid); line-height: 1.6; }
+
+
+  /* ─────────────────────────────────────────────────────────────────────
+   * VELOMON STRATEGY BUILDER
+   * ───────────────────────────────────────────────────────────────────── */
+/* ─── STRATEGY BUILDER ─── */
+  .sb-panel {
+    border-radius: 14px; overflow: hidden;
+    border: 2px solid var(--vorange);
+    box-shadow: 0 4px 32px rgba(243,124,33,.15);
+    margin-bottom: 28px;
+    animation: up .36s ease both;
+  }
+  .sb-header {
+    background: linear-gradient(135deg, #7a3a00 0%, #a05010 50%, #8b3e00 100%);
+    padding: 18px 28px; display: flex; align-items: center; gap: 16px;
+    position: relative; overflow: hidden;
+  }
+  .sb-header::before {
+    content: ''; position: absolute; inset: 0;
+    background: repeating-linear-gradient(-45deg,transparent,transparent 12px,
+      rgba(255,255,255,.025) 12px,rgba(255,255,255,.025) 14px);
+    pointer-events: none;
+  }
+  .sb-header-txt { flex:1; position:relative; z-index:1; }
+  .sb-header-txt h3 { font-family:'Merriweather',serif; font-size:16px; font-weight:700;
+    color:#fff; margin-bottom:3px; }
+  .sb-header-txt p { font-size:12.5px; color:rgba(255,220,180,.7); }
+  .sb-result-pill { background:rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.22);
+    border-radius:10px; padding:10px 18px; text-align:center; flex-shrink:0; z-index:1; }
+  .sb-result-pill .srp-lbl { font-size:9.5px; font-weight:700; letter-spacing:1.4px;
+    text-transform:uppercase; color:rgba(255,220,180,.8); }
+  .sb-result-pill .srp-val { font-family:'Merriweather',serif; font-size:22px;
+    font-weight:700; color:#ffd6a0; margin-top:2px; line-height:1; }
+  .sb-result-pill .srp-sub { font-size:10px; color:rgba(255,200,150,.6); margin-top:3px; }
+
+  .sb-toggles {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    background: #fff8f2; border-bottom: 1px solid #f0d8c0; padding: 0;
+  }
+  .sb-toggle {
+    padding: 16px 20px; display: flex; align-items: center; gap: 12px;
+    cursor: pointer; transition: background .15s; border-right: 1px solid #f0d8c0;
+    user-select: none;
+  }
+  .sb-toggle:last-child { border-right: none; }
+  .sb-toggle:hover { background: #fff0e0; }
+  .sb-toggle.active { background: #fff3e6; }
+  .sb-toggle-check {
+    width: 22px; height: 22px; border-radius: 6px; flex-shrink: 0;
+    border: 2px solid #ddd; background: #fff;
+    display: flex; align-items: center; justify-content: center;
+    transition: all .15s;
+  }
+  .sb-toggle.active .sb-toggle-check {
+    background: var(--vorange); border-color: var(--vorange); color: #fff;
+  }
+  .sb-toggle-check::after { content: '✓'; font-size: 13px; font-weight: 700;
+    color: #fff; display: none; }
+  .sb-toggle.active .sb-toggle-check::after { display: block; }
+  .sb-toggle-lbl { font-size: 12.5px; font-weight: 700; color: var(--vblue-dark); }
+  .sb-toggle-sub { font-size: 11px; color: var(--text-muted); margin-top: 1px; }
+
+  .sb-waterfall {
+    background: #fff; padding: 24px 28px;
+  }
+  .sb-wf-row {
+    display: flex; align-items: center; padding: 8px 0;
+    border-bottom: 1px solid #f5f0e8;
+  }
+  .sb-wf-row:last-child { border-bottom: none; }
+  .sb-wf-label { flex: 1; font-size: 13px; color: var(--text-mid); }
+  .sb-wf-label strong { color: var(--vblue-dark); }
+  .sb-wf-amount { font-family: 'Merriweather', serif; font-size: 14px;
+    font-weight: 700; min-width: 120px; text-align: right; }
+  .sb-wf-amount.neg { color: #16a34a; }
+  .sb-wf-amount.red { color: #b91c1c; }
+  .sb-wf-amount.orange { color: var(--vorange); }
+  .sb-wf-amount.blue { color: var(--vblue); }
+  .sb-wf-bar { height: 6px; border-radius: 3px; margin-left: 16px; min-width: 4px; }
+  .sb-wf-divider { height: 1px; background: var(--vorange); margin: 4px 0 12px;
+    opacity: .3; }
+  .sb-wf-total { background: linear-gradient(135deg,#fff8f0,#fff3e6);
+    border: 1.5px solid var(--vorange); border-radius: 10px;
+    padding: 14px 20px; margin-top: 16px;
+    display: flex; justify-content: space-between; align-items: center; }
+  .sb-wf-total-lbl { font-size: 11px; font-weight: 700; letter-spacing: .8px;
+    text-transform: uppercase; color: var(--vorange); }
+  .sb-wf-total-val { font-family: 'Merriweather', serif; font-size: 24px;
+    font-weight: 700; color: var(--vorange); }
+  .sb-wf-total-d1rv { font-size: 12px; color: var(--text-muted); margin-top: 3px; }
+
+  .sb-s7-detail {
+    background: #f0f7ff; border-top: 2px solid #93c5fd;
+    padding: 18px 28px;
+  }
+  .sb-s7-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(160px,1fr)); gap: 12px;
+    margin-top: 12px;
+  }
+  .sb-s7-cell { background: #fff; border: 1px solid #dbeafe; border-radius: 8px;
+    padding: 10px 14px; }
+  .sb-s7-cell-lbl { font-size: 9.5px; font-weight: 700; letter-spacing: .6px;
+    text-transform: uppercase; color: #1e4d8c; margin-bottom: 4px; }
+  .sb-s7-cell-val { font-size: 15px; font-weight: 700; color: #1d4ed8;
+    font-family: 'Merriweather', serif; }
+  .sb-s7-cell-sub { font-size: 10.5px; color: var(--text-muted); margin-top: 2px; }
+  .sb-s7-warning { background: #fff7ed; border: 1px solid #fed7aa; border-radius: 8px;
+    padding: 10px 14px; font-size: 12px; color: #92400e; margin-top: 10px;
+    display: flex; gap: 8px; align-items: flex-start; }
+
+  @media (max-width:820px) {
+    .main { padding:20px 18px 60px; }
+    .panels-row { flex-direction: column; }
+    .input-panel { width: 100%; }
+    .sc-metrics { grid-template-columns:repeat(2,1fr); }
+    .metric:nth-child(2) { border-right:none; }
+    .metric:nth-child(3),.metric:nth-child(4) { border-top:1px solid var(--border-lt); }
+    .metric:nth-child(4) { border-right:none; }
+    .action-bar { flex-wrap:wrap; }
+    .header-kpis { gap:0; }
+  }
+
+  /* ─── HIDDEN COSTS PANEL ─── */
+  .hc-panel {
+    border-radius: 14px; overflow: hidden;
+    border: 2px solid #c0392b;
+    box-shadow: 0 4px 32px rgba(192,57,43,.13);
+    margin-bottom: 32px;
+    animation: up .36s ease both;
+  }
+  .hc-header {
+    background: linear-gradient(135deg, #7b1a1a 0%, #a02020 50%, #8b1e1e 100%);
+    padding: 20px 28px;
+    display: flex; align-items: center; gap: 16px;
+    position: relative; overflow: hidden;
+  }
+  .hc-header::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: repeating-linear-gradient(
+      -45deg, transparent, transparent 12px,
+      rgba(255,255,255,.025) 12px, rgba(255,255,255,.025) 14px
+    );
+    pointer-events: none;
+  }
+  .hc-header-icon {
+    font-size: 28px; line-height: 1; flex-shrink: 0; position: relative; z-index: 1;
+  }
+  .hc-header-txt { flex: 1; position: relative; z-index: 1; }
+  .hc-header-txt h3 {
+    font-family: 'Merriweather', serif; font-size: 17px; font-weight: 700;
+    color: #fff; line-height: 1.2; margin-bottom: 4px;
+  }
+  .hc-header-txt p { font-size: 13px; color: rgba(255,255,255,.6); line-height: 1.5; }
+  .hc-total-pill {
+    background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.22);
+    border-radius: 10px; padding: 10px 18px; text-align: center; flex-shrink: 0;
+    position: relative; z-index: 1;
+  }
+  .hc-total-pill .hcp-lbl { font-size: 9.5px; font-weight: 700; letter-spacing: 1.4px; text-transform: uppercase; color: rgba(255,200,200,.8); }
+  .hc-total-pill .hcp-val { font-family: 'Merriweather', serif; font-size: 22px; font-weight: 700; color: #ffcdd2; margin-top: 2px; line-height: 1; }
+  .hc-total-pill .hcp-sub { font-size: 10px; color: rgba(255,200,200,.6); margin-top: 3px; }
+
+  .hc-body {
+    display: grid; grid-template-columns: 1fr 1fr;
+    background: #fff;
+  }
+  .hc-section {
+    padding: 26px 28px 28px;
+    border-right: 1px solid #f0dada;
+  }
+  .hc-section:last-child { border-right: none; }
+
+  .hc-section-head {
+    display: flex; align-items: center; gap: 10px; margin-bottom: 18px;
+  }
+  .hc-section-icon {
+    width: 38px; height: 38px; border-radius: 10px; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center; font-size: 18px;
+  }
+  .hc-section-icon.widow { background: #fce8e8; }
+  .hc-section-icon.legacy { background: #e8f0fe; }
+  .hc-section-title { font-family: 'Merriweather', serif; font-size: 14px; font-weight: 700; color: var(--vblue-dark); line-height: 1.2; }
+  .hc-section-sub { font-size: 11.5px; color: var(--text-muted); margin-top: 2px; }
+
+  .hc-big-number {
+    background: linear-gradient(135deg, #fef2f2, #fff5f5);
+    border: 1.5px solid #fca5a5;
+    border-radius: 10px;
+    padding: 16px 20px;
+    margin-bottom: 16px;
+  }
+  .hc-big-number.legacy-num {
+    background: linear-gradient(135deg, #eff6ff, #f0f7ff);
+    border-color: #93c5fd;
+  }
+  .hc-big-lbl { font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: #9b4444; margin-bottom: 4px; }
+  .hc-big-lbl.legacy-lbl { color: #1e4d8c; }
+  .hc-big-val { font-family: 'Merriweather', serif; font-size: 30px; font-weight: 700; color: #b91c1c; line-height: 1; }
+  .hc-big-val.legacy-val { color: #1d4ed8; }
+  .hc-big-detail { font-size: 12px; color: #7f1d1d; margin-top: 6px; line-height: 1.5; }
+  .hc-big-detail.legacy-detail { color: #1e3a8a; }
+
+  .hc-breakdown {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 10px; margin-bottom: 16px;
+  }
+  .hc-breakdown-item {
+    background: #fafafa; border: 1px solid #f0e0e0; border-radius: 8px; padding: 11px 13px;
+    min-width: 0; overflow: hidden;
+  }
+  .hc-breakdown-item.legacy-item { border-color: #dbeafe; }
+  .hc-bi-lbl { font-size: 10px; font-weight: 600; letter-spacing: .5px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 4px; }
+  .hc-bi-val { font-size: 15px; font-weight: 700; color: var(--vblue-dark); font-family: 'Inter', sans-serif; }
+  .hc-bi-val.red { color: #b91c1c; }
+  .hc-bi-val.blue { color: #1d4ed8; }
+  .hc-bi-val.green { color: #166534; }
+  .hc-bi-sub { font-size: 10.5px; color: var(--text-muted); margin-top: 2px; word-break: break-word; line-height: 1.4; }
+
+  .hc-narrative {
+    font-size: 12.5px; color: var(--text-mid); line-height: 1.75;
+    border-top: 1px solid #fce8e8; padding-top: 14px;
+  }
+  .hc-narrative.legacy-narrative { border-top-color: #dbeafe; }
+  .hc-narrative strong { color: var(--vblue-dark); }
+
+  /* Advisor controls inside the panel */
+  .hc-controls {
+    background: #f8f9fb; border-top: 1px solid #eedede; padding: 14px 28px;
+    display: flex; align-items: center; gap: 24px; flex-wrap: wrap;
+  }
+  .hc-ctrl-label {
+    font-size: 10.5px; font-weight: 700; letter-spacing: .7px; text-transform: uppercase;
+    color: var(--text-muted); margin-bottom: 5px;
+  }
+  .hc-ctrl-group { display: flex; flex-direction: column; min-width: 160px; }
+  .hc-ctrl-group input[type="number"], .hc-ctrl-group select {
+    padding: 7px 11px; border: 1.5px solid var(--border); border-radius: 7px;
+    font-family: 'Inter', sans-serif; font-size: 13px; color: var(--text);
+    background: var(--white); width: 160px;
+  }
+  .hc-ctrl-group input:focus, .hc-ctrl-group select:focus {
+    outline: none; border-color: #b91c1c; box-shadow: 0 0 0 3px rgba(185,28,28,.1);
+  }
+  .hc-recalc-btn {
+    padding: 9px 20px; background: #b91c1c; border: none; border-radius: 7px;
+    font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 700; color: #fff;
+    cursor: pointer; transition: all .18s; align-self: flex-end; white-space: nowrap;
+  }
+  .hc-recalc-btn:hover { background: #991b1b; transform: translateY(-1px); box-shadow: 0 4px 14px rgba(185,28,28,.3); }
+
+  .hc-not-married {
+    padding: 28px; background: #fff; text-align: center;
+    color: var(--text-muted); font-size: 14px; line-height: 1.6;
+  }
+
+  @media (max-width:820px) {
+    .hc-body { grid-template-columns: 1fr; }
+    .hc-section { border-right: none; border-bottom: 1px solid #f0dada; }
+    .hc-section:last-child { border-bottom: none; }
+    .hc-controls { flex-direction: column; align-items: flex-start; }
+  }
+
+	.st0{fill:#FFFFFF;}
+	.st1{fill:#F37C21;}
+	.st2{fill:#184274;}
 </style>
 </head>
 <body>
@@ -729,9 +1000,17 @@ body {
 
   <!-- ── STEP 1: DEMOGRAPHICS ─────────────────────────────────── -->
   <div class="step-panel active" id="step-1">
-    <div class="panel-header">
-      <h2>Client Profile &amp; Demographics</h2>
-      <p>Enter the client's personal information. This drives filing status, tax calculations, Medicare eligibility, RMD ages, and mortality modeling throughout the analysis.</p>
+    <div class="panel-header" style="display:flex;align-items:flex-start;justify-content:space-between;gap:20px;">
+      <div>
+        <h2>Client Profile &amp; Demographics</h2>
+        <p>Enter the client's personal information. This drives filing status, tax calculations, Medicare eligibility, RMD ages, and mortality modeling throughout the analysis.</p>
+      </div>
+      <button onclick="fillSampleData()"
+        style="flex-shrink:0;margin-top:4px;background:var(--vorange,#F37C21);color:#fff;border:none;
+          border-radius:8px;padding:10px 18px;font-size:13px;font-weight:700;cursor:pointer;
+          white-space:nowrap;box-shadow:0 2px 10px rgba(243,124,33,.35);">
+        &#129514; Load Sample Data
+      </button>
     </div>
 
     <!-- Primary Client -->
@@ -1239,6 +1518,10 @@ body {
 
       <!-- ── PANEL 1: THE DECISION ─────────────────────────────── -->
       <div id="decision-panel" style="margin-bottom:28px"></div>
+
+      <!-- ── VELOMON STRATEGY BUILDER ──────────────────────────── -->
+
+      <div id="velomon-builder-panel" style="margin-bottom:28px;"></div>
 
       <!-- ── PANEL 2: STRATEGY COMPARISON ─────────────────────── -->
       <div id="strategy-panel" style="margin-bottom:28px"></div>
@@ -4725,6 +5008,8 @@ function projectScenario(prof, strategyIdx, assets_in, incomes, lumpSumTarget, s
   // S2: track how many years remain and what the slice is
   const s2Slice = initQualBal / s2OptimalN;
   let s2YearsDone   = 0;   // years of conversion completed
+  let s7NolCarry    = 0;   // S7 bonus depreciation NOL carryforward
+  let s6BonusAmt    = 0;   // S6 annuity bonus credit (reset each yr loop iteration)
 
   // ── Strategy 4: compute minimum annual amount that completes in ≤25 years ──
   // Default: ceil(initQualBal / 25), so user always finishes ≤25 yrs.
@@ -5152,6 +5437,7 @@ function projectScenario(prof, strategyIdx, assets_in, incomes, lumpSumTarget, s
         // Amount to move OUT of qualified accounts this year
         let qualDeduction = 0;   // actual dollars removed from qual pool
         let rothAddition  = 0;   // dollars landing in Roth (may differ for S5/S6 discount)
+        s6BonusAmt = 0;   // reset each year
 
         switch(strategyIdx) {
 
@@ -5217,11 +5503,16 @@ function projectScenario(prof, strategyIdx, assets_in, incomes, lumpSumTarget, s
           }
 
           case 6: { // ── Velomon Bonused ───────────────────────────────────────────
-            // Same as S5 (35% discount) + bonus credit on fedTax (applied below).
+            // Same as S5 (35% discount) + S6 bonus cash credit added to Roth principal.
             if (yr === 0) {
               conversionAmt = qualBal;
               qualDeduction = qualBal;
               rothAddition  = qualBal;
+              // S6 bonus: insurance company credits this amount into the Roth/annuity
+              if (s6AllocPct > 0 && s6BonusRate > 0) {
+                s6BonusAmt = initQualBal * s6AllocPct * s6BonusRate;
+                rothAddition += s6BonusAmt;
+              }
             }
             break;
           }
@@ -5281,9 +5572,26 @@ function projectScenario(prof, strategyIdx, assets_in, incomes, lumpSumTarget, s
 
     // ── Full AGI with conversion ──────────────────────────────
     // S5 & S6 apply a 35% discount — only 65% of the conversion is taxable income.
-    const taxableConvAmt = (strategyIdx === 5 || strategyIdx === 6)
-      ? conversionAmt * 0.65
-      : conversionAmt;
+    const useS5disc = (strategyIdx === 5 || strategyIdx === 6);
+    let taxableConvAmt = useS5disc ? conversionAmt * 0.65 : conversionAmt;
+
+    // S7 NOL carryforward: reduce taxable conversion income (years 2+, up to 80%)
+    if (typeof window !== 'undefined' && window._veloS7NOL > 0 && yr > 0) {
+      const maxUse = Math.floor(taxableConvAmt * 0.80);
+      const used   = Math.min(s7NolCarry, maxUse);
+      taxableConvAmt = Math.max(0, taxableConvAmt - used);
+      s7NolCarry -= used;
+    }
+    // Year 0: apply S7 bonus depreciation offset to taxable conversion income
+    if (typeof window !== 'undefined' && window._veloS7NOL !== undefined && yr === 0) {
+      // S7 creates a full §168(k) depreciation deduction equal to s7Y1 usable amount.
+      // This reduces the taxable conversion amount dollar-for-dollar.
+      const s7Y1Used = window._veloS7Y1 || 0;
+      if (s7Y1Used > 0) {
+        taxableConvAmt = Math.max(0, taxableConvAmt - s7Y1Used);
+      }
+      s7NolCarry = window._veloS7NOL || 0;
+    }
 
     // SS taxability: provisional income = non-SS ordinary + LTCG + tax-exempt + 50% SS
     const nonSsIncome = ordinaryBeforeConv + taxableConvAmt + ltcgTotal + otherExempt;
@@ -5301,11 +5609,7 @@ function projectScenario(prof, strategyIdx, assets_in, incomes, lumpSumTarget, s
     let fedTax = calcFedTax(taxableIncome, filing, infFactor);
     // Strategy 6: Velomon Bonused — bonus credit = d1rv × 40% × 15%
     // d1rv proxy = initQualBal (full original balance before tax); applied in conversion year only.
-    let s6BonusAmt = 0;
-    if (strategyIdx === 6 && yr === 0 && conversionAmt > 0) {
-      s6BonusAmt = initQualBal * s6AllocPct * s6BonusRate;
-      fedTax = Math.max(0, fedTax - s6BonusAmt);
-    }
+    // s6BonusAmt reset at start of yr loop body (declared at function scope above)
     // Marginal tax attributable to SS (incremental tax from including SS in taxable income)
     const taxableNoSS = Math.max(0, taxableIncome - ssTaxableAmt);
     const fedTaxNoSS  = calcFedTax(taxableNoSS, filing, infFactor);
@@ -5681,8 +5985,9 @@ const STRATEGY_META = [
   { id:2, name:'Optimized Multi-Year',    shortName:'Multi-Year',     color:'#7c3aed' },
   { id:3, name:'Tax Bracket Mgmt (24%)',  shortName:'Bracket 24%',    color:'#2563eb' },
   { id:4, name:'Fixed Annual ($50K)',     shortName:'Fixed $50K',     color:'#d97706' },
-  { id:5, name:'Velomon',                 shortName:'Velomon',        color:'#059669' },
+  { id:5, name:'Velomon IRA-LLC',         shortName:'IRA-LLC',        color:'#059669' },
   { id:6, name:'Velomon Bonused',         shortName:'Velomon+',       color:'#184274' },
+  { id:7, name:'Velomon Custom',          shortName:'Velomon',        color:'#F37C21' },
 ];
 
 // ── 10-Year Legacy Penalty Calculator ────────────────────────────────────────
@@ -5839,6 +6144,7 @@ function runTaxEngine() {
       loadEl.style.display  = 'none';
       contEl.style.display  = 'block';
       renderResults(prof, results);
+      renderBuilderPanel();
       // Restore scroll — don't jump to top
       requestAnimationFrame(() => window.scrollTo({top: savedScroll, behavior:'instant'}));
     } catch(e) {
@@ -6070,6 +6376,8 @@ function renderExecutiveSummary(results, bestIdx) {
 
   // ── Compute per-strategy metrics ─────────────────────────
   const ltc = r => (r.cumFed||0) + (r.cumState||0) + (r.cumMedicare||0);
+  // Fee penalty: permanently included in No Conversion lifetime cost
+  const ltcWithFee = (r, i) => ltc(r) + (i === 0 ? (noConv.noConvFeePenalty||0) : 0);
 
   const calcCoC = r => {
     if (!r.years || r === noConv) return 0;
@@ -6084,23 +6392,60 @@ function renderExecutiveSummary(results, bestIdx) {
     },0);
   };
 
-  const metrics = results.map((r,i) => ({
-    r, i,
-    meta:    STRATEGY_META[i],
-    ltc:     ltc(r),
-    coc:     calcCoC(r),
-    d1rv:    i===0 ? null : (r.initQualBal||0) - calcCoC(r),
-    legacy:  r.netLegacy||0,
-    feeDividend: r.feeDividend||0,
-    savings: ltc(noConv) - ltc(r),
-    isBest:  i === bestIdx,
-    convYrs:   i===0 ? 0 : new Set((r.years||[]).filter(y=>y.conversionAmt>0).map(y=>y.calYear)).size,
-    cumConv:   r.cumConv||0,
-  }));
+  // Fee penalty — permanently part of No Conversion cost
+  const noConvFee   = noConv.noConvFeePenalty || 0;
+  const noConvTotal = ltc(noConv) + noConvFee;
 
-  const best    = metrics[bestIdx];
-  const noConvM = metrics[0];
-  const shouldConvert = best.savings > 0;
+  // Build metrics for ALL strategies (0-6)
+  const allMetrics = results.map((r,i) => {
+    const baseLtc = i===0 ? noConvTotal : ltc(r);
+    return {
+      r, i,
+      meta:       STRATEGY_META[i] || { id:i, name:'Strategy '+i, shortName:'S'+i, color:'#6b7280' },
+      ltc:        baseLtc,
+      coc:        calcCoC(r),
+      d1rv:       i===0 ? null : (r.initQualBal||0) - calcCoC(r),
+      legacy:     r.netLegacy||0,
+      feeDividend:r.feeDividend||0,
+      savings:    noConvTotal - baseLtc,
+      isBest:     i === bestIdx,
+      convYrs:    i===0 ? 0 : new Set((r.years||[]).filter(y=>y.conversionAmt>0).map(y=>y.calYear)).size,
+      cumConv:    r.cumConv||0,
+    };
+  });
+
+  // Display columns: S0 (No Convert) + S1-S4 (conventional) — S5/S6 excluded
+  const metrics = [0,1,2,3,4].map(i => allMetrics[i]);
+
+  // Velomon column: populated only when runVelomonScenario has been called
+  const veloResult  = results[7];
+  const hasVelo     = !!(veloResult && veloResult.isVeloCustom);
+  const veloMeta    = STRATEGY_META[7] || { shortName: 'Velomon', color: '#F37C21' };
+  // For Velomon, use builder's netTax/d1rv for CoC and D1RV — these correctly
+  // account for all strategy offsets (S5 discount, S6 bonus credit, S7 depreciation).
+  // calcCoC would show the engine's incremental tax which misses those offsets.
+  const _vbr = veloBuilderResult;
+  const veloMetrics = hasVelo ? {
+    r:           veloResult,
+    ltc:         ltc(veloResult),
+    coc:         _vbr ? (_vbr.netTax || 0) : calcCoC(veloResult),
+    d1rv:        _vbr ? (_vbr.d1rv   || 0) : (veloResult.initQualBal||0) - calcCoC(veloResult),
+    legacy:      veloResult.netLegacy||0,
+    feeDividend: veloResult.feeDividend||0,
+    savings:     noConvTotal - ltc(veloResult),
+    convYrs:     new Set((veloResult.years||[]).filter(y=>y.conversionAmt>0).map(y=>y.calYear)).size,
+    cumConv:     veloResult.cumConv||0,
+  } : null;
+
+  // Best conventional = lowest ltc among S1-S4
+  const convBestIdx = [1,2,3,4].reduce((b,i) =>
+    allMetrics[i].ltc < allMetrics[b].ltc ? i : b, 1);
+  const convBest    = allMetrics[convBestIdx];
+  // Velomon wins if it has lower ltc than best conventional
+  const veloIsBest  = !!(hasVelo && veloMetrics && veloMetrics.ltc < convBest.ltc);
+  const best        = veloIsBest ? { ...veloMetrics, meta: veloMeta, i:7, isVelo:true } : convBest;
+  const noConvM     = metrics[0];
+  const shouldConvert = best.ltc < noConvTotal;
 
   // ── SECTION 1: VERDICT BANNER ────────────────────────────
   const verdict = `
@@ -6127,15 +6472,16 @@ function renderExecutiveSummary(results, bestIdx) {
     </div>
 
     <!-- Verdict bar -->
-    <div style="background:${shouldConvert?GRN:'#d97706'};padding:16px 32px;display:flex;align-items:center;gap:20px">
+    <div style="background:${shouldConvert?(veloIsBest?'#7a3a00':GRN):'#d97706'};padding:16px 32px;display:flex;align-items:center;gap:20px">
       <div style="font-size:32px">${shouldConvert?'✅':'⚠️'}</div>
       <div style="flex:1">
         <div style="font-size:17px;font-weight:800;color:white">
           ${shouldConvert
-            ? `Converting can save up to <span style="color:#86efac">${$(best.savings)}</span> in lifetime taxes depending on the conversion strategy selected`
+            ? (veloIsBest
+                ? `The Velomon <strong>${veloResult.veloLabel||'Custom'}</strong> strategy saves <span style="color:#86efac">${$(best.savings)}</span> in lifetime taxes — best overall strategy`
+                : `Converting can save up to <span style="color:#86efac">${$(best.savings)}</span> in lifetime taxes${hasVelo&&veloMetrics&&veloMetrics.savings>0?' · Velomon saves '+$(veloMetrics.savings)+' — use Strategy Builder':''}`)
             : 'No financial tax advantage to conversion under current assumptions'}
         </div>
-
       </div>
     </div>
 
@@ -6144,50 +6490,62 @@ function renderExecutiveSummary(results, bestIdx) {
       <div style="padding:22px 28px;border-right:1px solid #e2e8f0;text-align:center">
         <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#94a3b8;margin-bottom:8px">Lifetime Tax · No Conversion</div>
         <div style="font-size:34px;font-weight:800;color:${RED}">${$(noConvM.ltc)}</div>
-        <div style="font-size:11px;color:#94a3b8;margin-top:6px">If you do nothing — this is what you'll pay</div>
+        <div style="font-size:11px;color:#94a3b8;margin-top:6px">Taxes + fee penalty — if you do nothing</div>
       </div>
       <div style="padding:22px 28px;border-right:1px solid #e2e8f0;text-align:center;background:${shouldConvert?'#f0fdf4':'#fffbeb'}">
-        <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#94a3b8;margin-bottom:8px">Lifetime Tax · ${best.meta.shortName}</div>
-        <div style="font-size:34px;font-weight:800;color:${shouldConvert?GRN:RED}">${$(best.ltc)}</div>
-        <div style="font-size:11px;color:#94a3b8;margin-top:6px">Best conversion strategy identified by this analysis</div>
+        <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#94a3b8;margin-bottom:8px">Lifetime Tax · ${veloIsBest?'⭐ Velomon '+veloResult.veloLabel:best.meta.shortName}</div>
+        <div style="font-size:34px;font-weight:800;color:${shouldConvert?(veloIsBest?'#F37C21':GRN):RED}">${$(best.ltc)}</div>
+        <div style="font-size:11px;color:#94a3b8;margin-top:6px">${veloIsBest?'Velomon custom — best overall':'Best conversion strategy identified by this analysis'}</div>
       </div>
       <div style="padding:22px 28px;text-align:center">
-        <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#94a3b8;margin-bottom:8px">${shouldConvert?'You Save':'Risk Benefits Remain'}</div>
-        <div style="font-size:34px;font-weight:800;color:${shouldConvert?ORG:'#d97706'}">${shouldConvert?$(Math.abs(best.savings)):'See risks →'}</div>
-        <div style="font-size:11px;color:#94a3b8;margin-top:6px">${shouldConvert?'The mathematical case for converting':"Tax rate, widow's & kiddo's risk remain"}</div>
+        <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#94a3b8;margin-bottom:8px">${shouldConvert?'Lifetime Tax Savings':'Risk Benefits Remain'}</div>
+        <div style="font-size:34px;font-weight:800;color:${shouldConvert?(veloIsBest?'#F37C21':ORG):'#d97706'}">${shouldConvert?$(best.savings):'See risks →'}</div>
+        <div style="font-size:11px;color:#94a3b8;margin-top:6px">${shouldConvert?(veloIsBest?'Velomon vs no conversion':'Best conventional vs no conversion'):"Tax rate, widow's & kiddo's risk remain"}</div>
       </div>
     </div>
   </div>`;
 
   // ── SECTION 2: BAR CHART ─────────────────────────────────
   const noConvFP = results[0]?.noConvFeePenalty || 0;
-  const maxLtcWithFee = Math.max(...metrics.map(m=>m.ltc + (m.i===0 ? noConvFP : 0))) * 1.08;
+  const maxLtcWithFee = Math.max(...metrics.map(m=>m.ltc), noConvTotal, hasVelo ? ltc(veloResult) : 0) * 1.05;
   const bars = metrics.map(m => {
-    const totalVal = m.ltc + (m.i===0 ? noConvFP : 0);
-    const barPct = (m.ltc / maxLtcWithFee * 100).toFixed(1);
-    const feePct = m.i===0 ? (noConvFP / maxLtcWithFee * 100).toFixed(1) : 0;
-    const color = m.isBest ? ORG : m.i===0 ? '#64748b' : m.i>=5 ? NAVY : '#475569';
-    const topLabel = m.i===0 && noConvFP>0
-      ? `<div style="font-size:10px;font-weight:700;color:#b45309;margin-bottom:1px;text-align:center">${$(totalVal)}</div>
-         <div style="font-size:9px;color:#b45309;margin-bottom:3px;text-align:center">(incl. fees)</div>`
-      : `<div style="font-size:11px;font-weight:700;color:${color};margin-bottom:4px;text-align:center">${m.isBest?'★ ':''}${$(m.ltc)}</div>`;
-    const feeStack = m.i===0 && noConvFP>0
-      ? `<div style="width:100%;background:#f59e0b;height:${feePct}%;flex-shrink:0" title="Hidden fee cost: ${$(noConvFP)}"></div>`
-      : '';
-    return `
-    <div style="display:flex;flex-direction:column;align-items:center;flex:1;min-width:0">
-      ${topLabel}
-      <div style="width:100%;background:#f1f5f9;border-radius:4px 4px 0 0;height:120px;display:flex;flex-direction:column;align-items:stretch;justify-content:flex-end;overflow:hidden">
-        ${feeStack}
-        <div style="width:100%;background:${color};height:${barPct}%;border-radius:${m.i===0&&noConvFP>0?'0':'4px 4px'} 0 0;transition:height .3s;flex-shrink:0"></div>
+    const color  = m.isBest ? ORG : m.i===0 ? '#1e3a5f' : '#475569';
+    const maxH   = 160;
+    // For No Conversion: split into tax segment + fee segment so heights add up to total
+    const taxPortion = m.i===0 ? (m.ltc - noConvFP) : m.ltc;
+    const barH   = Math.max(18, Math.round(taxPortion / maxLtcWithFee * maxH));
+    const feeH   = m.i===0 && noConvFP>0 ? Math.max(10, Math.round(noConvFP / maxLtcWithFee * maxH)) : 0;
+    // For No Conversion: split into tax (navy) + fee (amber) segments
+    // barH uses only the tax portion; fee sits on top; combined label shows total
+    const taxLtc  = m.i===0 ? (ltc(m.r) || m.ltc) : m.ltc;
+    const adjBarH = Math.max(18, Math.round(taxLtc / maxLtcWithFee * maxH));
+    const midY    = Math.round(adjBarH / 2);
+    // Label shows the combined total (taxes + fees) for No Conversion
+    const displayVal = m.i===0 ? m.ltc : m.ltc;
+    const valLbl  = `<div style="position:absolute;bottom:${midY - 7}px;left:0;right:0;text-align:center;font-size:10px;font-weight:700;color:#fff;">${$(displayVal)}</div>`;
+    const feeLbl  = feeH>=16 ? `<div style="position:absolute;top:50%;transform:translateY(-50%);left:0;right:0;text-align:center;font-size:9px;font-weight:700;color:rgba(0,0,0,.75);">+${$(noConvFP)}</div>` : '';
+    return `<div style="display:flex;flex-direction:column;align-items:center;flex:1;min-width:0;">
+      <div style="width:100%;height:${maxH}px;display:flex;flex-direction:column;justify-content:flex-end;align-items:stretch;box-sizing:border-box;">
+        ${feeH>0 ? `<div style="background:#f59e0b;height:${feeH}px;flex-shrink:0;border-radius:3px 3px 0 0;position:relative;">${feeLbl}</div>` : ''}
+        <div style="background:${color};height:${adjBarH}px;flex-shrink:0;border-radius:${feeH>0?'0':'3px 3px'} 0 0;position:relative;">${valLbl}</div>
       </div>
-      <div style="font-size:10px;color:#64748b;text-align:center;margin-top:4px;line-height:1.3;padding:0 2px">
-        ${m.meta.shortName.replace(' ', '<br>')}
-      </div>
+      <div style="height:2px;background:#64748b;width:100%;flex-shrink:0;"></div>
+      <div style="font-size:10px;color:#64748b;text-align:center;margin-top:4px;line-height:1.3;height:30px;display:flex;align-items:flex-start;justify-content:center;">${m.i===0?'No<br>Convert':m.meta.shortName.replace(' ','<br>')}</div>
     </div>`;
-  }).join('');
-
-  const chart = `
+  }).join('') + (hasVelo ? (() => {
+    const vm    = allMetrics[7];
+    const maxH  = 160;
+    const vBarH = Math.max(18, Math.round(vm.ltc / maxLtcWithFee * maxH));
+    const midY  = Math.round(vBarH / 2);
+    const vLbl  = '<div style="position:absolute;bottom:' + (midY-7) + 'px;left:0;right:0;text-align:center;font-size:10px;font-weight:700;color:#fff;">' + $(vm.ltc) + '</div>';
+    return '<div style="display:flex;flex-direction:column;align-items:center;flex:1;min-width:0;">'
+      + '<div style="width:100%;height:' + maxH + 'px;display:flex;flex-direction:column;justify-content:flex-end;align-items:stretch;box-sizing:border-box;">'
+      + '<div style="background:#a05010;height:' + vBarH + 'px;flex-shrink:0;border-radius:3px 3px 0 0;position:relative;">' + vLbl + '</div>'
+      + '</div>'
+      + '<div style="height:2px;background:#64748b;width:100%;flex-shrink:0;"></div>'
+      + '<div style="font-size:10px;color:#a05010;font-weight:700;text-align:center;margin-top:4px;line-height:1.3;height:30px;display:flex;align-items:flex-start;justify-content:center;">&#11088; Velomon</div>'
+      + '</div>';
+  })() : ''); const chart = `
   <div style="background:white;border:1px solid #e2e8f0;border-top:none;padding:20px 32px 24px">
     <div style="font-size:12px;font-weight:700;color:#334155;margin-bottom:16px;text-transform:uppercase;letter-spacing:.06em">
       📊 Lifetime Tax Cost by Strategy — Lower is Better
@@ -6196,31 +6554,39 @@ function renderExecutiveSummary(results, bestIdx) {
     <div style="font-size:10px;color:#94a3b8;margin-top:12px">
       ★ = Best strategy &nbsp;|&nbsp; <span style="color:${NAVY}">■</span> Velomon strategies &nbsp;|&nbsp;
       Orange bar = best strategy &nbsp;|&nbsp; Gray = No Conversion baseline &nbsp;|&nbsp;
-      <span style="color:#b45309">■</span> Amber = hidden fee cost of not converting (fees paid on embedded tax liability)
+      <span style="color:#b45309">■</span> Amber = total advisory fees paid over planning horizon (avoided by converting)
     </div>
   </div>`;
 
   // ── SECTION 3: STRATEGY COMPARISON TABLE ─────────────────
-  const colHdrs = metrics.map(m => `
-    <th style="padding:10px 14px;text-align:right;font-size:11px;font-weight:700;
-       background:${m.isBest?ORG:m.i===0?'#475569':m.i===6?NAVY:'#334155'};
+  const colHdrs = metrics.map(m =>
+    `<th style="padding:10px 14px;text-align:right;font-size:11px;font-weight:700;
+       background:${m.isBest?ORG:m.i===0?'#475569':'#334155'};
        color:white;border-left:1px solid rgba(255,255,255,.15);white-space:nowrap;min-width:110px">
-      ${m.isBest?'★ ':''}${m.meta.shortName}
-    </th>`).join('');
+      ${m.isBest?'&#9733; ':''}${m.meta.shortName}
+    </th>`).join('')
+  + `<th style="padding:10px 14px;text-align:right;font-size:11px;font-weight:700;
+       background:${hasVelo?'#a05010':'#374151'};opacity:${hasVelo?'1':'0.6'};
+       color:white;border-left:2px solid rgba(255,255,255,.25);white-space:nowrap;min-width:120px">
+      &#11088; ${hasVelo && veloResult?.veloLabel ? 'Velomon '+veloResult.veloLabel : 'Velomon'}
+    </th>`;
 
   const tableRows = [
-    { label:'Lifetime Tax Cost',         note:'Fed + State + Medicare + IRMAA',   vals: metrics.map(m=>m.ltc),     lower:true,  fmt:$ },
-    { label:'Tax Savings vs No Convert', note:'How much less you pay by converting',vals:metrics.map(m=>m.savings), lower:false, fmt:n=>n>0?`<span style="color:${GRN};font-weight:800">${$(n)}</span>`:n<0?`<span style="color:${RED}">${$(n)}</span>`:'<span style="color:#94a3b8">—</span>' },
-    { label:'Cost of Conversion',        note:'Incremental taxes caused by converting',vals:metrics.map(m=>m.coc),  lower:true,  fmt:n=>n>0?$(n):'<span style="color:#94a3b8">N/A</span>' },
+    { label:'Lifetime Tax Cost',         note:'Fed + State + Medicare + IRMAA',   vals: metrics.map(m=>m.ltc),     lower:true,  fmt:$, vmKey:'ltc' },
+    { label:'Fee Penalty — Not Converting', note:"Mgmt fees on IRS's share — eliminated by converting",
+      vals: metrics.map((m,ci) => ci===0 ? (noConvFee||0) : null), lower:false, vmKey:null,
+      fmt: (n,ci) => ci===0 && n>0 ? `<span style="color:#b45309;font-weight:700">${$(n)}</span>` : '<span style="color:#94a3b8;font-size:11px">N/A</span>' },
+    { label:'Tax Savings vs No Convert', note:'How much less you pay by converting',vals:metrics.map(m=>m.savings), vmKey:'savings', lower:false, fmt:n=>n>0?`<span style="color:${GRN};font-weight:800">${$(n)}</span>`:n<0?`<span style="color:${RED}">${$(n)}</span>`:'<span style="color:#94a3b8">—</span>' },
+    { label:'Cost of Conversion',        note:'Incremental taxes caused by converting',vals:metrics.map(m=>m.coc),  vmKey:'coc',  lower:true,  fmt:n=>n>0?$(n):'<span style="color:#94a3b8">N/A</span>' },
     { label:'Total Amount Converted',     note:'Cumulative pre-tax dollars converted to Roth across all years',
-      vals:metrics.map(m=>m.cumConv), lower:false,
+      vals:metrics.map(m=>m.cumConv), lower:false, vmKey:'cumConv',
       fmt: n => n>0 ? $(n) : '<span style="color:#94a3b8">—</span>' },
-    { label:'D1RV — Day-One Roth Value', note:'Pre-tax balance minus conversion cost',vals:metrics.map(m=>m.d1rv),  lower:false, fmt:n=>n!==null&&n>0?$(n):'<span style="color:#94a3b8">N/A</span>' },
-    { label:'Net Legacy to Heirs',       note:'After-tax value of IRA accounts to heirs (excl. non-qual assets)',  vals:metrics.map(m=>m.legacy),  lower:false, fmt:$ },
+    { label:'D1RV — Day-One Roth Value', note:'Pre-tax balance minus conversion cost',vals:metrics.map(m=>m.d1rv),  lower:false, vmKey:'d1rv', fmt:n=>n!==null&&n>0?$(n):'<span style="color:#94a3b8">N/A</span>' },
+    { label:'Net Legacy to Heirs',       note:'After-tax value of IRA accounts to heirs (excl. non-qual assets)',  vals:metrics.map(m=>m.legacy),  vmKey:'legacy',  lower:false, fmt:$ },
     { label:'Years to Full Conversion',  note:'Number of years until pre-tax account is fully converted to Roth',
-      vals:metrics.map(m=>m.convYrs), lower:true,
+      vals:metrics.map(m=>m.convYrs), lower:true, vmKey:'convYrs',
       fmt: n => n===0 ? '<span style="color:#94a3b8">\u2014</span>' : n===1 ? '<strong>1 year</strong>' : `<strong>${n} years</strong>` },
-    { label:'Fee Dividend',              note:'Compounded lifetime fee savings in Velomon Bonused annuity',vals:metrics.map(m=>m.feeDividend), lower:false, fmt:n=>n>0?`<span style="color:${NAVY};font-weight:700">${$(n)}</span>`:'<span style="color:#94a3b8">—</span>' },
+    { label:'Fee Dividend',              note:'Compounded lifetime fee savings in Velomon Bonused annuity',vals:metrics.map(m=>m.feeDividend), lower:false, vmKey:'feeDividend', fmt:n=>n>0?`<span style="color:${NAVY};font-weight:700">${$(n)}</span>`:'<span style="color:#94a3b8">—</span>' },
   ].map(row => {
     const maxVal = row.lower ? null : Math.max(...row.vals.filter(v=>v!==null&&v>0));
     const minVal = row.lower ? Math.min(...row.vals.filter(v=>v!==null&&v>=0)) : null;
@@ -6231,15 +6597,25 @@ function renderExecutiveSummary(results, bestIdx) {
         font-weight:${m.isBest?'800':'500'};
         background:${m.isBest?'#fff7ed':isBestVal?'#f0fdf4':'white'};
         border-left:1px solid #e2e8f0;border-bottom:1px solid #f1f5f9">
-        ${row.fmt(v)}
+        ${row.fmt(v, i)}
       </td>`;
     }).join('');
+    // Velomon cell — use pre-computed veloMetrics
+    const _vmKey = row.vmKey;
+    const veloVal = (hasVelo && veloMetrics && _vmKey != null) ? veloMetrics[_vmKey] : null;
+    const veloCell = hasVelo && veloVal !== null
+      ? `<td style="padding:10px 14px;text-align:right;font-size:13px;font-weight:700;
+           background:#fff8f0;border-left:2px solid #f0d8c0;border-bottom:1px solid #f1f5f9;color:#a05010">
+           ${row.fmt(veloVal, 7)}</td>`
+      : `<td style="padding:10px 14px;text-align:right;font-size:13px;color:#94a3b8;
+           background:#f9f9f9;border-left:2px solid #f0d8c0;border-bottom:1px solid #f1f5f9;
+           opacity:0.5">—</td>`;
     return `<tr>
       <td style="padding:10px 16px;background:#f8fafc;border-bottom:1px solid #f1f5f9;border-right:2px solid #e2e8f0">
         <div style="font-size:12px;font-weight:700;color:#334155">${row.label}</div>
         <div style="font-size:10px;color:#94a3b8;margin-top:2px">${row.note}</div>
       </td>
-      ${cells}
+      ${cells}${veloCell}
     </tr>`;
   }).join('');
 
@@ -6275,7 +6651,7 @@ function renderExecutiveSummary(results, bestIdx) {
       </div>
     </div>`;
 
-  const convYrs = best.r.years ? new Set(best.r.years.filter(y=>y.conversionAmt>0).map(y=>y.calYear)).size : 0;
+  const convYrs = best.r?.years ? new Set(best.r.years.filter(y=>y.conversionAmt>0).map(y=>y.calYear)).size : 0;
   const s6Div   = metrics[6]?.feeDividend||0;
   const noConvR = results[0];
 
@@ -6412,6 +6788,8 @@ function renderComparisonTable(results, totals, bestIdx) {
   // Helper: INCREMENTAL cost of conversion vs No Conversion (results[0])
   // Compares each conversion strategy against S0 in the same years
   const noConvR = results[0]; // Strategy 0 = No Conversion baseline
+  // Limit to S0-S6 — S7 (Velomon) shown only in executive summary table
+  const displayResults = results.slice(0,7).filter(r => r && r.years);
   const calcCoC = r => {
     if (!r.years || r === noConvR) return 0;
     const cy = new Set(r.years.filter(y=>y.conversionAmt>0).map(y=>y.calYear));
@@ -6592,12 +6970,12 @@ function renderComparisonTable(results, totals, bestIdx) {
 
     // Skip rows where all strategies show zero (hide empty income categories)
     if (skipIfZero && fn) {
-      const anyNonZero = results.some(r => (fn(r)||0) > 0);
+      const anyNonZero = displayResults.some(r => (fn(r)||0) > 0);
       if (!anyNonZero) return;
     }
 
     rowNum++;
-    const vals = fn ? results.map((r,i) => fn(r,i)||0) : results.map(()=>0);
+    const vals = fn ? displayResults.map((r,i) => fn(r,i)||0) : displayResults.map(()=>0);
     const nonZeroVals = vals.filter(v=>v>0);
     const best = lower && nonZeroVals.length ? Math.min(...nonZeroVals)
                : higher ? Math.max(...vals) : null;
@@ -7905,7 +8283,7 @@ function renderCSVPanel() {
   const results = engineResults.results;
   box.innerHTML = '';
   results.forEach((r, i) => {
-    const meta = STRATEGY_META[i];
+    const meta = STRATEGY_META[i] || { id:i, name:'Strategy '+i, shortName:'S'+i, color:'#6b7280' };
     const label = document.createElement('label');
     label.style.cssText = 'display:inline-flex;align-items:center;gap:6px;padding:6px 12px;' +
       'background:white;border:1.5px solid #cddaea;border-radius:20px;cursor:pointer;' +
@@ -8332,7 +8710,7 @@ function generatePDFReport() {
 
   // Build strategy comparison table rows
   const strats = results.map((r,i) => ({
-    name:   STRATEGY_META[i].shortName,
+    name:   (STRATEGY_META[i] || { shortName:'S'+i }).shortName,
     ltc:    ltcFn(r),
     savings:ltcNoConv - ltcFn(r),
     coc:    calcCoC(r),
@@ -8524,6 +8902,270 @@ function generatePDFReport() {
   .strategy-desc { background:#f0f4ff; border-left:3px solid ${NAVY}; padding:8px 12px; margin-bottom:8px; font-size:10px; line-height:1.55; border-radius:0 6px 6px 0; }
   .footer { margin-top:10px; padding:10px 14px; background:#f8fafc; border:1px solid #e2e8f0; border-radius:6px; font-size:8.5px; color:#94a3b8; line-height:1.55; }
   .print-btn { display:inline-block; margin-bottom:12px; padding:8px 20px; background:${ORG}; color:white; border:none; border-radius:6px; font-size:13px; font-weight:700; cursor:pointer; }
+
+  /* ── Velomon Strategy Builder ── */
+  /* ─── STRATEGY BUILDER ─── */
+  .sb-panel {
+    border-radius: 14px; overflow: hidden;
+    border: 2px solid var(--vorange);
+    box-shadow: 0 4px 32px rgba(243,124,33,.15);
+    margin-bottom: 28px;
+    animation: up .36s ease both;
+  }
+  .sb-header {
+    background: linear-gradient(135deg, #7a3a00 0%, #a05010 50%, #8b3e00 100%);
+    padding: 18px 28px; display: flex; align-items: center; gap: 16px;
+    position: relative; overflow: hidden;
+  }
+  .sb-header::before {
+    content: ''; position: absolute; inset: 0;
+    background: repeating-linear-gradient(-45deg,transparent,transparent 12px,
+      rgba(255,255,255,.025) 12px,rgba(255,255,255,.025) 14px);
+    pointer-events: none;
+  }
+  .sb-header-txt { flex:1; position:relative; z-index:1; }
+  .sb-header-txt h3 { font-family:'Merriweather',serif; font-size:16px; font-weight:700;
+    color:#fff; margin-bottom:3px; }
+  .sb-header-txt p { font-size:12.5px; color:rgba(255,220,180,.7); }
+  .sb-result-pill { background:rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.22);
+    border-radius:10px; padding:10px 18px; text-align:center; flex-shrink:0; z-index:1; }
+  .sb-result-pill .srp-lbl { font-size:9.5px; font-weight:700; letter-spacing:1.4px;
+    text-transform:uppercase; color:rgba(255,220,180,.8); }
+  .sb-result-pill .srp-val { font-family:'Merriweather',serif; font-size:22px;
+    font-weight:700; color:#ffd6a0; margin-top:2px; line-height:1; }
+  .sb-result-pill .srp-sub { font-size:10px; color:rgba(255,200,150,.6); margin-top:3px; }
+
+  .sb-toggles {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    background: #fff8f2; border-bottom: 1px solid #f0d8c0; padding: 0;
+  }
+  .sb-toggle {
+    padding: 16px 20px; display: flex; align-items: center; gap: 12px;
+    cursor: pointer; transition: background .15s; border-right: 1px solid #f0d8c0;
+    user-select: none;
+  }
+  .sb-toggle:last-child { border-right: none; }
+  .sb-toggle:hover { background: #fff0e0; }
+  .sb-toggle.active { background: #fff3e6; }
+  .sb-toggle-check {
+    width: 22px; height: 22px; border-radius: 6px; flex-shrink: 0;
+    border: 2px solid #ddd; background: #fff;
+    display: flex; align-items: center; justify-content: center;
+    transition: all .15s;
+  }
+  .sb-toggle.active .sb-toggle-check {
+    background: var(--vorange); border-color: var(--vorange); color: #fff;
+  }
+  .sb-toggle-check::after { content: '✓'; font-size: 13px; font-weight: 700;
+    color: #fff; display: none; }
+  .sb-toggle.active .sb-toggle-check::after { display: block; }
+  .sb-toggle-lbl { font-size: 12.5px; font-weight: 700; color: var(--vblue-dark); }
+  .sb-toggle-sub { font-size: 11px; color: var(--text-muted); margin-top: 1px; }
+
+  .sb-waterfall {
+    background: #fff; padding: 24px 28px;
+  }
+  .sb-wf-row {
+    display: flex; align-items: center; padding: 8px 0;
+    border-bottom: 1px solid #f5f0e8;
+  }
+  .sb-wf-row:last-child { border-bottom: none; }
+  .sb-wf-label { flex: 1; font-size: 13px; color: var(--text-mid); }
+  .sb-wf-label strong { color: var(--vblue-dark); }
+  .sb-wf-amount { font-family: 'Merriweather', serif; font-size: 14px;
+    font-weight: 700; min-width: 120px; text-align: right; }
+  .sb-wf-amount.neg { color: #16a34a; }
+  .sb-wf-amount.red { color: #b91c1c; }
+  .sb-wf-amount.orange { color: var(--vorange); }
+  .sb-wf-amount.blue { color: var(--vblue); }
+  .sb-wf-bar { height: 6px; border-radius: 3px; margin-left: 16px; min-width: 4px; }
+  .sb-wf-divider { height: 1px; background: var(--vorange); margin: 4px 0 12px;
+    opacity: .3; }
+  .sb-wf-total { background: linear-gradient(135deg,#fff8f0,#fff3e6);
+    border: 1.5px solid var(--vorange); border-radius: 10px;
+    padding: 14px 20px; margin-top: 16px;
+    display: flex; justify-content: space-between; align-items: center; }
+  .sb-wf-total-lbl { font-size: 11px; font-weight: 700; letter-spacing: .8px;
+    text-transform: uppercase; color: var(--vorange); }
+  .sb-wf-total-val { font-family: 'Merriweather', serif; font-size: 24px;
+    font-weight: 700; color: var(--vorange); }
+  .sb-wf-total-d1rv { font-size: 12px; color: var(--text-muted); margin-top: 3px; }
+
+  .sb-s7-detail {
+    background: #f0f7ff; border-top: 2px solid #93c5fd;
+    padding: 18px 28px;
+  }
+  .sb-s7-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(160px,1fr)); gap: 12px;
+    margin-top: 12px;
+  }
+  .sb-s7-cell { background: #fff; border: 1px solid #dbeafe; border-radius: 8px;
+    padding: 10px 14px; }
+  .sb-s7-cell-lbl { font-size: 9.5px; font-weight: 700; letter-spacing: .6px;
+    text-transform: uppercase; color: #1e4d8c; margin-bottom: 4px; }
+  .sb-s7-cell-val { font-size: 15px; font-weight: 700; color: #1d4ed8;
+    font-family: 'Merriweather', serif; }
+  .sb-s7-cell-sub { font-size: 10.5px; color: var(--text-muted); margin-top: 2px; }
+  .sb-s7-warning { background: #fff7ed; border: 1px solid #fed7aa; border-radius: 8px;
+    padding: 10px 14px; font-size: 12px; color: #92400e; margin-top: 10px;
+    display: flex; gap: 8px; align-items: flex-start; }
+
+  @media (max-width:820px) {
+    .main { padding:20px 18px 60px; }
+    .panels-row { flex-direction: column; }
+    .input-panel { width: 100%; }
+    .sc-metrics { grid-template-columns:repeat(2,1fr); }
+    .metric:nth-child(2) { border-right:none; }
+    .metric:nth-child(3),.metric:nth-child(4) { border-top:1px solid var(--border-lt); }
+    .metric:nth-child(4) { border-right:none; }
+    .action-bar { flex-wrap:wrap; }
+    .header-kpis { gap:0; }
+  }
+
+  /* ─── HIDDEN COSTS PANEL ─── */
+  .hc-panel {
+    border-radius: 14px; overflow: hidden;
+    border: 2px solid #c0392b;
+    box-shadow: 0 4px 32px rgba(192,57,43,.13);
+    margin-bottom: 32px;
+    animation: up .36s ease both;
+  }
+  .hc-header {
+    background: linear-gradient(135deg, #7b1a1a 0%, #a02020 50%, #8b1e1e 100%);
+    padding: 20px 28px;
+    display: flex; align-items: center; gap: 16px;
+    position: relative; overflow: hidden;
+  }
+  .hc-header::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: repeating-linear-gradient(
+      -45deg, transparent, transparent 12px,
+      rgba(255,255,255,.025) 12px, rgba(255,255,255,.025) 14px
+    );
+    pointer-events: none;
+  }
+  .hc-header-icon {
+    font-size: 28px; line-height: 1; flex-shrink: 0; position: relative; z-index: 1;
+  }
+  .hc-header-txt { flex: 1; position: relative; z-index: 1; }
+  .hc-header-txt h3 {
+    font-family: 'Merriweather', serif; font-size: 17px; font-weight: 700;
+    color: #fff; line-height: 1.2; margin-bottom: 4px;
+  }
+  .hc-header-txt p { font-size: 13px; color: rgba(255,255,255,.6); line-height: 1.5; }
+  .hc-total-pill {
+    background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.22);
+    border-radius: 10px; padding: 10px 18px; text-align: center; flex-shrink: 0;
+    position: relative; z-index: 1;
+  }
+  .hc-total-pill .hcp-lbl { font-size: 9.5px; font-weight: 700; letter-spacing: 1.4px; text-transform: uppercase; color: rgba(255,200,200,.8); }
+  .hc-total-pill .hcp-val { font-family: 'Merriweather', serif; font-size: 22px; font-weight: 700; color: #ffcdd2; margin-top: 2px; line-height: 1; }
+  .hc-total-pill .hcp-sub { font-size: 10px; color: rgba(255,200,200,.6); margin-top: 3px; }
+
+  .hc-body {
+    display: grid; grid-template-columns: 1fr 1fr;
+    background: #fff;
+  }
+  .hc-section {
+    padding: 26px 28px 28px;
+    border-right: 1px solid #f0dada;
+  }
+  .hc-section:last-child { border-right: none; }
+
+  .hc-section-head {
+    display: flex; align-items: center; gap: 10px; margin-bottom: 18px;
+  }
+  .hc-section-icon {
+    width: 38px; height: 38px; border-radius: 10px; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center; font-size: 18px;
+  }
+  .hc-section-icon.widow { background: #fce8e8; }
+  .hc-section-icon.legacy { background: #e8f0fe; }
+  .hc-section-title { font-family: 'Merriweather', serif; font-size: 14px; font-weight: 700; color: var(--vblue-dark); line-height: 1.2; }
+  .hc-section-sub { font-size: 11.5px; color: var(--text-muted); margin-top: 2px; }
+
+  .hc-big-number {
+    background: linear-gradient(135deg, #fef2f2, #fff5f5);
+    border: 1.5px solid #fca5a5;
+    border-radius: 10px;
+    padding: 16px 20px;
+    margin-bottom: 16px;
+  }
+  .hc-big-number.legacy-num {
+    background: linear-gradient(135deg, #eff6ff, #f0f7ff);
+    border-color: #93c5fd;
+  }
+  .hc-big-lbl { font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: #9b4444; margin-bottom: 4px; }
+  .hc-big-lbl.legacy-lbl { color: #1e4d8c; }
+  .hc-big-val { font-family: 'Merriweather', serif; font-size: 30px; font-weight: 700; color: #b91c1c; line-height: 1; }
+  .hc-big-val.legacy-val { color: #1d4ed8; }
+  .hc-big-detail { font-size: 12px; color: #7f1d1d; margin-top: 6px; line-height: 1.5; }
+  .hc-big-detail.legacy-detail { color: #1e3a8a; }
+
+  .hc-breakdown {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 10px; margin-bottom: 16px;
+  }
+  .hc-breakdown-item {
+    background: #fafafa; border: 1px solid #f0e0e0; border-radius: 8px; padding: 11px 13px;
+    min-width: 0; overflow: hidden;
+  }
+  .hc-breakdown-item.legacy-item { border-color: #dbeafe; }
+  .hc-bi-lbl { font-size: 10px; font-weight: 600; letter-spacing: .5px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 4px; }
+  .hc-bi-val { font-size: 15px; font-weight: 700; color: var(--vblue-dark); font-family: 'Inter', sans-serif; }
+  .hc-bi-val.red { color: #b91c1c; }
+  .hc-bi-val.blue { color: #1d4ed8; }
+  .hc-bi-val.green { color: #166534; }
+  .hc-bi-sub { font-size: 10.5px; color: var(--text-muted); margin-top: 2px; word-break: break-word; line-height: 1.4; }
+
+  .hc-narrative {
+    font-size: 12.5px; color: var(--text-mid); line-height: 1.75;
+    border-top: 1px solid #fce8e8; padding-top: 14px;
+  }
+  .hc-narrative.legacy-narrative { border-top-color: #dbeafe; }
+  .hc-narrative strong { color: var(--vblue-dark); }
+
+  /* Advisor controls inside the panel */
+  .hc-controls {
+    background: #f8f9fb; border-top: 1px solid #eedede; padding: 14px 28px;
+    display: flex; align-items: center; gap: 24px; flex-wrap: wrap;
+  }
+  .hc-ctrl-label {
+    font-size: 10.5px; font-weight: 700; letter-spacing: .7px; text-transform: uppercase;
+    color: var(--text-muted); margin-bottom: 5px;
+  }
+  .hc-ctrl-group { display: flex; flex-direction: column; min-width: 160px; }
+  .hc-ctrl-group input[type="number"], .hc-ctrl-group select {
+    padding: 7px 11px; border: 1.5px solid var(--border); border-radius: 7px;
+    font-family: 'Inter', sans-serif; font-size: 13px; color: var(--text);
+    background: var(--white); width: 160px;
+  }
+  .hc-ctrl-group input:focus, .hc-ctrl-group select:focus {
+    outline: none; border-color: #b91c1c; box-shadow: 0 0 0 3px rgba(185,28,28,.1);
+  }
+  .hc-recalc-btn {
+    padding: 9px 20px; background: #b91c1c; border: none; border-radius: 7px;
+    font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 700; color: #fff;
+    cursor: pointer; transition: all .18s; align-self: flex-end; white-space: nowrap;
+  }
+  .hc-recalc-btn:hover { background: #991b1b; transform: translateY(-1px); box-shadow: 0 4px 14px rgba(185,28,28,.3); }
+
+  .hc-not-married {
+    padding: 28px; background: #fff; text-align: center;
+    color: var(--text-muted); font-size: 14px; line-height: 1.6;
+  }
+
+  @media (max-width:820px) {
+    .hc-body { grid-template-columns: 1fr; }
+    .hc-section { border-right: none; border-bottom: 1px solid #f0dada; }
+    .hc-section:last-child { border-bottom: none; }
+    .hc-controls { flex-direction: column; align-items: flex-start; }
+  }
+
+	.st0{fill:#FFFFFF;}
+	.st1{fill:#F37C21;}
+	.st2{fill:#184274;}
+
 </style>
 </head>
 <body>
@@ -8721,6 +9363,63 @@ function generatePDFReport() {
   </div>
 </div>
 
+${veloResultForPDF ? `
+<!-- ── VELOMON CUSTOM STRATEGY ──────────────────────────────────────── -->
+<div class="section" style="page-break-before:always;">
+  <div class="section-head" style="background:linear-gradient(135deg,#7a3a00,#a05010);color:#fff;">
+    <div style="display:flex;align-items:center;gap:10px;">
+      <span style="font-size:20px;">&#11088;</span>
+      <div>
+        <div style="font-weight:700;font-size:13px;">Velomon Custom Strategy — Lifetime Projection</div>
+        <div style="font-size:10.5px;opacity:.8;">${STRATEGY_META[7]?.name||'Velomon Custom'}</div>
+      </div>
+    </div>
+  </div>
+  <div class="section-body">
+    <div class="kpi-grid" style="margin-bottom:16px;">
+      <div class="kpi">
+        <div class="kpi-label">Lifetime Tax Cost</div>
+        <div class="kpi-val" style="color:#b91c1c;">${$(ltcFn(veloResultForPDF))}</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">Tax Savings vs No Convert</div>
+        <div class="kpi-val" style="color:${ltcFn(veloResultForPDF)<ltcNoConv?'#16a34a':'#b91c1c'};">${$(ltcNoConv-ltcFn(veloResultForPDF))}</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">Cost of Conversion</div>
+        <div class="kpi-val">${$(calcCoC(veloResultForPDF))}</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">D1RV — Day-One Roth</div>
+        <div class="kpi-val" style="color:#184274;">${$((veloResultForPDF.initQualBal||0)-calcCoC(veloResultForPDF))}</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">Net Legacy to Heirs</div>
+        <div class="kpi-val" style="color:#16a34a;">${$(veloResultForPDF.netLegacy||0)}</div>
+      </div>
+    </div>
+    ${veloBuilderResult ? `
+    <div style="border-top:1px solid #e5e7eb;padding-top:14px;">
+      <div style="font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:#a05010;margin-bottom:10px;">Strategy Composition</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px;">
+        ${veloBuilderResult.useS5?'<span style="background:#fff3e6;border:1px solid #f0d8c0;border-radius:5px;padding:4px 10px;font-size:11px;font-weight:600;color:#7a3a00;">&#10003; S5 — IRA-LLC 35% Valuation Discount</span>':''}
+        ${veloBuilderResult.useS6?'<span style="background:#fff3e6;border:1px solid #f0d8c0;border-radius:5px;padding:4px 10px;font-size:11px;font-weight:600;color:#7a3a00;">&#10003; S6 — Annuity Bonus $'+Math.round(veloBuilderResult.s6Bonus||0).toLocaleString()+'</span>':''}
+        ${veloBuilderResult.useS7?'<span style="background:#eff6ff;border:1px solid #bfdbfe;border-radius:5px;padding:4px 10px;font-size:11px;font-weight:600;color:#1e4d8c;">&#10003; S7 — Bonus Depreciation ($'+Math.round(veloBuilderResult.s7Inv||0).toLocaleString()+' invested)</span>':''}
+      </div>
+      <table style="width:100%;border-collapse:collapse;font-size:11px;">
+        <tr style="background:#f9fafb;">
+          <td style="padding:5px 10px;font-weight:600;color:#374151;border-bottom:1px solid #f3f4f6;">Net Conversion Tax</td>
+          <td style="padding:5px 10px;text-align:right;font-weight:700;color:#a05010;border-bottom:1px solid #f3f4f6;">$${Math.round(veloBuilderResult.netTax||0).toLocaleString()}</td>
+          <td style="padding:5px 10px;font-weight:600;color:#374151;border-bottom:1px solid #f3f4f6;">Effective Cost</td>
+          <td style="padding:5px 10px;text-align:right;font-weight:700;color:#a05010;border-bottom:1px solid #f3f4f6;">${(veloBuilderResult.effCost*100||0).toFixed(1)}% of IRA</td>
+        </tr>
+        ${veloBuilderResult.useS7?'<tr><td style="padding:5px 10px;color:#374151;border-bottom:1px solid #f3f4f6;">S7 Annual Cash Flow</td><td style="padding:5px 10px;text-align:right;font-weight:700;color:#16a34a;border-bottom:1px solid #f3f4f6;">$'+Math.round(veloBuilderResult.s7AnnualCF||0).toLocaleString()+'/yr &times; 9 yrs</td><td style="padding:5px 10px;color:#374151;border-bottom:1px solid #f3f4f6;">NOL Carryforward</td><td style="padding:5px 10px;text-align:right;font-weight:700;color:#1d4ed8;border-bottom:1px solid #f3f4f6;">'+(veloBuilderResult.s7NOL>0?'$'+Math.round(veloBuilderResult.s7NOL||0).toLocaleString():'None')+'</td></tr>':''}
+      </table>
+    </div>` : ''}
+  </div>
+</div>
+` : ''}
+
 <!-- ── RISK ANALYSIS ──────────────────────────────────────────────── -->
 <div class="section">
   <div class="section-head">⚠️ The Risks of NOT Converting</div>
@@ -8905,6 +9604,828 @@ ${assumptionsHtml}
   w.document.close();
   // Report opens ready to review — user clicks Print button when ready
 }
+
+// ═══════════════════════════════════════════════════════════════════════
+// VELOMON STRATEGY BUILDER — ported from AdvisorStrategiesCalculator
+// ═══════════════════════════════════════════════════════════════════════
+
+const S5_DISCOUNT   = 0.35;
+const S7_LEVERAGE   = 5;
+const S7_CF_RATE    = 0.10;
+const S7_FLOOR      = 70000;
+const EBL_2026      = { single: 256000, married: 512000, hoh: 256000 };
+
+const BRACKETS = {
+  single:[
+    {min:0,max:12399,rate:.10},{min:12399,max:50399,rate:.12},
+    {min:50399,max:105699,rate:.22},{min:105699,max:201774,rate:.24},
+    {min:201774,max:256224,rate:.32},{min:256224,max:640599,rate:.35},
+    {min:640599,max:Infinity,rate:.37}],
+  married:[
+    {min:0,max:24799,rate:.10},{min:24799,max:100799,rate:.12},
+    {min:100799,max:211399,rate:.22},{min:211399,max:403549,rate:.24},
+    {min:403549,max:512449,rate:.32},{min:512449,max:768699,rate:.35},
+    {min:768699,max:Infinity,rate:.37}],
+  hoh:[
+    {min:0,max:17000,rate:.10},{min:17000,max:64850,rate:.12},
+    {min:64850,max:103350,rate:.22},{min:103350,max:197300,rate:.24},
+    {min:197300,max:250500,rate:.32},{min:250500,max:626350,rate:.35},
+    {min:626350,max:Infinity,rate:.37}],
+};
+
+function fedTax(income, filing) {
+  const bs = BRACKETS[filing] || BRACKETS.married;
+  let t = 0;
+  for (const b of bs) {
+    if (income <= b.min) break;
+    t += (Math.min(income, b.max) - b.min) * b.rate;
+  }
+  return Math.max(0, t);
+}
+
+const builderState = { s5: false, s6: false, s7: false };
+let _s6AllocType = 'pct';
+let _s7DebounceTimer = null;
+// Stores the latest builder result for Velomon column
+let veloBuilderResult = null;
+
+function s7InputChanged(el) {
+  el.dataset.isDefault = 'false';
+  const canonical = document.getElementById('rcda-s7-investment');
+  if (canonical && canonical !== el) {
+    canonical.value = el.value;
+    canonical.dataset.isDefault = 'false';
+  }
+  clearTimeout(_s7DebounceTimer);
+  _s7DebounceTimer = setTimeout(() => {
+    const val = parseFloat(el.value) || 0;
+    if (val >= S7_FLOOR) { window._vbState.s7Inv = val; window._vbState.s7IsDefault = false; renderBuilderPanel(); }
+  }, 1200);
+}
+
+function s7InputBlur(el) {
+  clearTimeout(_s7DebounceTimer);
+  let val = parseFloat(el.value) || 0;
+  if (val > 0 && val < S7_FLOOR) {
+    val = S7_FLOOR;
+    el.value = S7_FLOOR;
+    const canonical = document.getElementById('rcda-s7-investment');
+    if (canonical && canonical !== el) canonical.value = S7_FLOOR;
+  }
+  if (val >= S7_FLOOR) renderBuilderPanel();
+}
+
+function calcMinS7Investment(inc, fil, stRate, taxableBasis, s6Bonus, eblCap) {
+  if (taxableBasis <= 0) return S7_FLOOR;
+  const fullTax = Math.max(0,
+    fedTax(inc+taxableBasis,fil) - fedTax(inc,fil) + taxableBasis*stRate);
+  if (s6Bonus >= fullTax) return S7_FLOOR;
+  let lo = 0, hi = taxableBasis;
+  for (let i = 0; i < 80; i++) {
+    const mid  = (lo + hi) / 2;
+    const basis = Math.max(0, taxableBasis - mid);
+    const t = Math.max(0, fedTax(inc+basis,fil) - fedTax(inc,fil) + basis*stRate) - s6Bonus;
+    if (t > 0) lo = mid; else hi = mid;
+  }
+  const reqDep = Math.ceil(hi);
+  const reqInv = Math.ceil(reqDep / S7_LEVERAGE / 1000) * 1000;
+  return Math.max(reqInv, S7_FLOOR);
+}
+
+function calcStrategyBuilder(s1data, s5data, s6data, sInputs) {
+  const { ira, inc, fil, stRate } = sInputs;
+  const eblCap = EBL_2026[fil] || EBL_2026.married;
+
+  const useS5 = builderState.s5;
+  const useS6 = builderState.s6;
+  const useS7 = builderState.s7;
+
+  // STEP 1: S5 principal discount
+  const taxableBasis  = useS5 ? ira * (1 - S5_DISCOUNT) : ira;
+  const s5Reduction   = ira - taxableBasis;
+  const taxOnBasis    = Math.max(0,
+    fedTax(inc + taxableBasis, fil) - fedTax(inc, fil) + taxableBasis * stRate);
+  const d1rvForS6     = ira - taxOnBasis;
+
+  // STEP 2: S6 annuity bonus
+  const _v = sInputs._v || {};
+  const s6BonusRate = (_v.s6BonusRate !== undefined) ? _v.s6BonusRate : (parseFloat(document.getElementById('rcda-s6-bonus-rate')?.value) || 15) / 100;
+  let s6Premium = 0, s6Bonus = 0;
+  if (useS6) {
+    const baseD1rv = useS5 ? d1rvForS6 : (s1data ? ira - s1data.totalTax : d1rvForS6);
+    let allocatedPremium;
+    if (_s6AllocType === 'flat') {
+      const flatEntry = (_v.s6AllocFlat !== undefined) ? _v.s6AllocFlat : (parseFloat(document.getElementById('rcda-s6-alloc-flat')?.value) || 0);
+      allocatedPremium = flatEntry > 0 ? Math.min(flatEntry, baseD1rv) : baseD1rv * 0.40;
+    } else {
+      const allocPct = (_v.s6AllocPct !== undefined) ? _v.s6AllocPct : (parseFloat(document.getElementById('rcda-s6-alloc-pct')?.value) || 40) / 100;
+      allocatedPremium = baseD1rv * allocPct;
+    }
+    s6Premium = Math.max(0, Math.min(allocatedPremium, baseD1rv));
+    s6Bonus   = s6Premium * s6BonusRate;
+  }
+
+  // Gross tax after S5 before S7
+  const grossTaxS5 = taxOnBasis;
+  const taxAfterS6 = Math.max(0, grossTaxS5 - s6Bonus);
+
+  // STEP 3: S7 depreciation offset
+  let s7InvEl = document.getElementById('rcda-s7-investment');
+  let s7InvRaw = (_v.s7Inv !== undefined && _v.s7Inv > 0) ? _v.s7Inv : (parseFloat(s7InvEl?.value) || 0);
+  let s7IsDefault = false;
+
+  if (useS7 && (s7InvRaw < S7_FLOOR || (_v.s7IsDefault === true) || s7InvEl?.dataset?.isDefault === 'true')) {
+    const minInv = calcMinS7Investment(inc, fil, stRate, taxableBasis, s6Bonus, eblCap);
+    s7InvRaw = minInv;
+    s7IsDefault = true;
+    if (s7InvEl) { s7InvEl.value = minInv; s7InvEl.dataset.isDefault = 'true'; }
+  }
+
+  const s7Inv    = useS7 ? Math.max(s7InvRaw, S7_FLOOR) : 0;
+  const s7Dep    = s7Inv * S7_LEVERAGE;
+  const s7Usable = Math.min(s7Dep, eblCap);
+  const s7NOL    = Math.max(0, s7Dep - eblCap);
+  const s7Applied       = useS7 ? Math.min(s7Dep, taxableBasis) : 0;
+  const s7Y1Usable      = useS7 ? Math.min(s7Dep, eblCap) : 0;
+  const netTaxableBasis = Math.max(0, taxableBasis - s7Applied);
+
+  const taxAfterS5S7 = Math.max(0,
+    fedTax(inc + netTaxableBasis, fil) - fedTax(inc, fil) + netTaxableBasis * stRate);
+  const netTax  = Math.max(0, taxAfterS5S7 - s6Bonus);
+  const d1rv    = ira - netTax;
+  const s7AnnualCF = s7Inv * S7_CF_RATE;
+  const effCost = ira > 0 ? netTax / ira : 0;
+
+  return {
+    useS5, useS6, useS7,
+    ira, taxableBasis, s5Reduction,
+    grossTaxS5, taxAfterS6,
+    s6Premium, s6Bonus, s6BonusRate, d1rvForS6,
+    s7Inv, s7Dep, s7Usable, s7NOL, s7Applied, s7Y1Usable,
+    s7AnnualCF, s7IsDefault, eblCap,
+    netTaxableBasis, taxAfterS5S7, netTax, d1rv, effCost, fil,
+  };
+}
+
+function sbToggle(key) {
+  builderState[key] = !builderState[key];
+  if (key === 's5' || key === 's6') {
+    window._vbState.s7IsDefault = true;
+  }
+  renderBuilderPanel();
+  // If all strategies deselected: clear Velomon column immediately
+  if (!builderState.s5 && !builderState.s6 && !builderState.s7) {
+    if (engineResults) {
+      engineResults.results[7] = undefined;
+      veloBuilderResult = null;
+      renderDecisionPanel(engineResults.results, engineResults.bestIdx);
+    }
+  }
+}
+
+
+
+// Build sInputs from RCDA engineResults
+function getRCDASInputs() {
+  if (!engineResults) return null;
+  const prof = engineResults.prof;
+  const r0   = engineResults.results[0];
+  const ira  = r0?.initQualBal || 0;
+  // Regular income = year 0 ordinary income from no-conversion scenario
+  const yr0  = r0?.years?.[0];
+  const inc  = yr0 ? ((yr0.wageIncome||0) + (yr0.pensionIncome||0) +
+                      (yr0.rentalIncome||0) + (yr0.otherOrdIncome||0)) : 0;
+  const fil  = prof.filing || 'married';
+  const stRate = prof.stateRate || 0; // already decimal
+  return { ira, inc, fil, stRate };
+}
+
+function updateS6AllocHint() {
+  const hint = document.getElementById('s6AllocHint');
+  if (!hint) return;
+  if (_s6AllocType === 'flat') {
+    const flat = parseFloat(document.getElementById('s6AllocationFlat')?.value) || 0;
+    // Show live warning if flat amount exceeds last known D1RV
+    const lastD1RV = (engineResults?.results?.[5]?.initQualBal || 0) - (veloBuilderResult?.grossTaxS5 || 0);
+    if (flat > 0 && lastD1RV > 0 && flat > lastD1RV) {
+      hint.textContent = '⚠ Exceeds Day One Roth Value — will be capped at '
+        + Math.round(lastD1RV).toLocaleString('en-US',{style:'currency',currency:'USD',maximumFractionDigits:0})
+        + ' on recalculate';
+      hint.style.color = '#b91c1c';
+    } else if (flat > 0 && lastD1RV > 0) {
+      const pct = (flat / lastD1RV * 100).toFixed(1);
+      hint.textContent = '= ' + pct + '% of Day One Roth Value';
+      hint.style.color = 'var(--vblue-light)';
+    } else {
+      hint.textContent = 'Enter flat dollar premium for the annuity';
+      hint.style.color = 'var(--text-muted)';
+    }
+  } else {
+    hint.textContent = 'Percentage of Day One Roth Value allocated to bonus vehicle';
+    hint.style.color = 'var(--text-muted)';
+  }
+}
+
+function renderS7Card(b) {
+  const fmt = n => '$' + Math.round(Math.abs(n)).toLocaleString();
+  const pct = n => (n * 100).toFixed(1) + '%';
+
+  // Always compute what investment would zero out remaining tax (for "not elected" display)
+  let zeroInv = S7_FLOOR;
+  if (sResults && sInputs) {
+    const wasS7 = builderState.s7;
+    builderState.s7 = true;
+    const tmp = calcStrategyBuilder(sResults.s1, sResults.s5, sResults.s6, sInputs);
+    builderState.s7 = wasS7;
+    zeroInv = tmp.s7Inv;
+  }
+  const zeroDep = zeroInv * S7_LEVERAGE;
+  const zeroCF  = zeroInv * S7_CF_RATE;
+  const minDep  = S7_FLOOR * S7_LEVERAGE;
+  const minCF   = S7_FLOOR * S7_CF_RATE;
+
+  const metricBox = (lbl, val, sub, color) =>
+    `<div style="background:#fff;border:1px solid #e8e8e8;border-radius:7px;padding:10px 13px;">
+      <div style="font-size:9.5px;font-weight:700;text-transform:uppercase;color:var(--text-muted);margin-bottom:3px;">${lbl}</div>
+      <div style="font-size:15px;font-weight:700;color:${color||'var(--vblue-dark)'};font-family:'Merriweather',serif;margin-bottom:2px;">${val}</div>
+      <div style="font-size:10.5px;color:var(--text-muted);">${sub}</div>
+    </div>`;
+
+  if (!b || !builderState.s7) {
+    // ── NOT ELECTED ──────────────────────────────────────────────────────
+    return `
+    <div id="s7-card" class="strategy-card" style="border:2px solid var(--vorange);">
+      <div class="sc-head" style="background:linear-gradient(135deg,#1a3a5c,#184274);">
+        <div class="sc-num" style="background:var(--vorange);color:#fff;">7</div>
+        <div>
+          <div class="sc-title">Strategy 7 — Bonus Depreciation (Offset)</div>
+          <div class="sc-sub">§168(k) 100% bonus depreciation · 5:1 leverage · 10% annual cash flow on client's out-of-pocket investment</div>
+        </div>
+        <span class="sc-badge" style="background:rgba(243,124,33,.32);color:#ffc285;">★ Velomon</span>
+      </div>
+      <div class="sc-overview">
+        <div class="sc-overview-body" style="padding:22px 28px;font-size:13.5px;color:var(--text-mid);line-height:1.8;">
+          <strong style="color:var(--vblue-dark);">Strategy 7 — Bonus Depreciation Offset</strong> uses
+          <strong>§168(k) 100% bonus depreciation</strong> (permanently restored under the One Big Beautiful
+          Bill Act, July 4, 2025) to offset IRA conversion income. The client forms a business entity that
+          acquires fully depreciable tangible assets — putting down only <strong>20%</strong> while the
+          program finances the remaining 80%. The full asset value is deducted in Year 1, offsetting
+          conversion income dollar-for-dollar up to the
+          <strong>§461(l) Excess Business Loss cap</strong> ($512,000 MFJ / $256,000 Single in 2026).
+          Excess depreciation carries forward as a Net Operating Loss with no expiration, offsetting up
+          to 80% of future taxable income. The client earns a <strong>10% annual cash flow</strong>
+          on their <em>out-of-pocket investment</em> (the 20% down — not the total equipment value)
+          from equipment leases.<br><br>
+
+          <div style="background:#f8f9fb;border:1.5px solid #e0e8f0;border-radius:10px;padding:16px 20px;margin-bottom:16px;">
+            <div style="font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--text-muted);margin-bottom:12px;">
+              Minimum Investment Example — $${S7_FLOOR.toLocaleString()} floor
+            </div>
+            <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;">
+              ${metricBox('Min. Investment', fmt(S7_FLOOR), '20% down (non-IRA)', 'var(--vblue-dark)')}
+              ${metricBox('Depreciation (5×)', fmt(minDep), 'Total deductible assets', 'var(--vblue-dark)')}
+              ${metricBox('Annual Cash Flow', fmt(minCF)+'/yr', '10% on '+fmt(S7_FLOOR)+' invested', '#16a34a')}
+              ${metricBox('EBL Cap (MFJ 2026)', '$512,000', 'Max Year 1 offset', 'var(--vblue-dark)')}
+            </div>
+          </div>
+
+          <div style="background:linear-gradient(135deg,#fff8f0,#fff3e6);border:2px solid var(--vorange);border-radius:10px;padding:16px 20px;margin-bottom:16px;">
+            <div style="font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--vorange);margin-bottom:8px;">
+              👉 Based on Your Inputs — What You're Missing
+            </div>
+            <div style="font-size:13px;color:var(--text-mid);margin-bottom:12px;">
+              The investment required to fully offset the remaining conversion tax:
+            </div>
+            <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;">
+              ${metricBox('Investment Required', fmt(zeroInv), '20% down (non-IRA)', 'var(--vorange)')}
+              ${metricBox('Depreciation (5×)', fmt(zeroDep), 'Total deductible assets', 'var(--vblue-dark)')}
+              ${metricBox('Annual Cash Flow', fmt(zeroCF)+'/yr', '10% on '+fmt(zeroInv), '#16a34a')}
+              ${metricBox('Net Conversion Tax', '$0', 'Cost-free Roth conversion', '#16a34a')}
+            </div>
+          </div>
+
+          <div style="display:flex;align-items:center;gap:10px;background:rgba(243,124,33,.06);
+            border-left:3px solid var(--vorange);padding:10px 14px;border-radius:0 8px 8px 0;font-size:13px;">
+            👉 Toggle <strong>Strategy 7</strong> in the Strategy Builder above to activate.
+          </div>
+        </div>
+      </div>
+    </div>`;
+  }
+
+  // ── ELECTED ──────────────────────────────────────────────────────────────
+  const eblFull = b.s7Dep <= b.eblCap;
+  const nolAmt  = b.s7NOL;
+  const yr5CF   = b.s7AnnualCF * 5;
+  const zeroTax = b.netTax <= 100;
+
+  return `
+  <div id="s7-card" class="strategy-card" style="border:2px solid var(--vorange);">
+    <div class="sc-head" style="background:linear-gradient(135deg,#1a3a5c,#184274);">
+      <div class="sc-num" style="background:var(--vorange);color:#fff;">7</div>
+      <div>
+        <div class="sc-title">Strategy 7 — Bonus Depreciation (Offset)</div>
+        <div class="sc-sub">${fmt(b.s7Inv)} investment (20% down) · ${fmt(b.s7Dep)} depreciation · ${zeroTax ? 'Cost-free conversion ✓' : fmt(b.netTax) + ' net tax'}</div>
+      </div>
+      <span class="sc-badge" style="background:rgba(243,124,33,.42);color:#ffd6a0;">${zeroTax ? '★★ Cost-Free' : '★ Velomon'}</span>
+    </div>
+
+    <div class="sc-metrics">
+      <div class="metric">
+        <div class="metric-lbl">Client Investment</div>
+        <div class="metric-val">${fmt(b.s7Inv)}</div>
+        <div class="metric-sub" style="color:#b91c1c;font-weight:600;">20% down · non-IRA</div>
+      </div>
+      <div class="metric">
+        <div class="metric-lbl">Depreciation (5×)</div>
+        <div class="metric-val">${fmt(b.s7Dep)}</div>
+        <div class="metric-sub">Total deductible assets</div>
+      </div>
+      <div class="metric">
+        <div class="metric-lbl">Net Conversion Tax</div>
+        <div class="metric-val" style="color:${zeroTax ? '#16a34a' : '#b91c1c'};">${fmt(b.netTax)}</div>
+        <div class="metric-sub">${pct(b.effCost)} of IRA${zeroTax ? ' · Cost-free!' : ''}</div>
+      </div>
+      <div class="metric">
+        <div class="metric-lbl">Annual Cash Flow</div>
+        <div class="metric-val" style="color:#16a34a;">${fmt(b.s7AnnualCF)}/yr</div>
+        <div class="metric-sub">10% on ${fmt(b.s7Inv)} (20% down)</div>
+      </div>
+    </div>
+
+    <div style="background:#f8f9fb;border-top:1px solid #eee;padding:14px 24px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;">
+      <div style="font-size:11px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;color:var(--text-muted);">Adjust Investment:</div>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <span style="font-size:15px;font-weight:700;color:var(--text-muted);">$</span>
+        <input type="number"
+          value="${Math.round(b.s7Inv)}"
+          min="${S7_FLOOR}" step="1000"
+          onfocus="this.select()"
+          oninput="s7InputChanged(this)"
+          style="width:160px;padding:8px 11px;border:2px solid var(--vblue);border-radius:7px;font-family:Inter,sans-serif;font-size:15px;font-weight:700;color:var(--vblue-dark);">
+        <span style="font-size:12px;color:var(--text-muted);">min ${fmt(S7_FLOOR)} · type any amount</span>
+      </div>
+    </div>
+
+    <div class="sc-overview">
+      <div class="sc-overview-body" style="padding:20px 28px;font-size:13.5px;color:var(--text-mid);line-height:1.8;">
+        Under <strong>§168(k) 100% bonus depreciation</strong> (P.L. 119-21), the client invests
+        <strong>${fmt(b.s7Inv)}</strong> as a <strong>20% down payment</strong> on
+        <strong>${fmt(b.s7Dep)}</strong> of fully depreciable tangible personal property
+        (the program finances the remaining 80%). The full asset cost is deducted in Year 1.<br><br>
+
+        ${eblFull
+          ? `The full <strong>${fmt(b.s7Dep)}</strong> falls within the §461(l) EBL cap
+             (<strong>${fmt(b.eblCap)}</strong>) — entirely usable in Year 1.
+             Result: <strong style="color:#16a34a;">cost-free Roth conversion</strong>.`
+          : `The <strong>${fmt(b.s7Dep)}</strong> in total depreciation fully offsets the
+             conversion income — but only <strong>${fmt(b.s7Y1Usable||b.s7Applied)}</strong>
+             is usable in Year 1 (§461(l) EBL cap: <strong>${fmt(b.eblCap)}</strong>).
+             The remaining <strong>${fmt(nolAmt)}</strong> carries forward as an NOL (§172)
+             with <strong>no expiration</strong>, offsetting up to 80% of future income annually.
+             The conversion tax is <strong>fully offset over multiple years</strong>;
+             the Year 1 cash tax obligation is <strong style="color:#b91c1c;">${fmt(b.netTax)}</strong>.`
+        }<br><br>
+
+        The client earns <strong>${fmt(b.s7AnnualCF)}/yr</strong> — 10% on their
+        <strong>${fmt(b.s7Inv)} out-of-pocket investment</strong> (not on the full ${fmt(b.s7Dep)}
+        equipment value) — totaling <strong style="color:#16a34a;">${fmt(yr5CF)}</strong> over 5 years.
+
+        <br><br>
+        <span style="display:inline-block;background:rgba(243,124,33,.06);border-left:3px solid var(--vorange);
+          padding:8px 14px;border-radius:0 6px 6px 0;font-size:12.5px;">
+          <strong style="color:var(--vorange);">Effective cost of conversion:</strong>
+          ${pct(b.effCost)} of the original IRA balance — all Velomon strategies combined.
+        </span>
+
+        ${nolAmt > 0 ? `
+        <br><br>
+        <div style="background:#eff6ff;border:1px solid #93c5fd;border-radius:8px;padding:14px 18px;
+          font-size:12.5px;color:#1e3a8a;line-height:1.65;">
+          <strong>† NOL Carryforward — ${fmt(nolAmt)}</strong><br>
+          Carries forward indefinitely under §172:
+          <ul style="margin:7px 0 0 18px;padding:0;">
+            <li style="margin-bottom:3px;">Offsets up to <strong>80%</strong> of taxable income each future year until fully used</li>
+            <li style="margin-bottom:3px;"><strong>No expiration</strong> — carries forward until exhausted</li>
+            <li style="margin-bottom:3px;">${fmt(b.netTax)} shown is the <strong>Year 1 obligation only</strong> — future income substantially sheltered</li>
+            <li>Annual cash flow of ${fmt(b.s7AnnualCF)}/yr from equipment leases may itself be offset by NOL utilization</li>
+          </ul>
+        </div>` : ''}
+
+        <div style="margin-top:14px;background:#fff7ed;border:1px solid #fed7aa;border-radius:8px;
+          padding:12px 16px;font-size:12.5px;color:#92400e;line-height:1.6;">
+          ⚠️ <strong>Non-IRA funds required:</strong> The client must have access to
+          <strong>${fmt(b.s7Inv)}</strong> as a 20% down payment. This amount can potentially be
+          financed — the client does not necessarily need to possess the full amount outright.
+          Advisor should confirm fund availability before presenting this strategy.
+        </div>
+      </div>
+    </div>
+  </div>`;
+}
+
+function setS6AllocType(type) {
+  _s6AllocType = type;
+  if (!window._vbState) window._vbState = {};
+  window._vbState.allocType = type;
+  renderBuilderPanel();
+}
+
+
+// State object preserves input values across panel re-renders
+window._vbState = window._vbState || {
+  s6AllocPct: 40, s6AllocFlat: '', s6BonusRate: 15,
+  s7Inv: 0, s7IsDefault: true, s7AssetSrc: '',
+  allocType: 'pct'
+};
+_s6AllocType = window._vbState.allocType || 'pct';
+
+function _vbSave() {
+  const pct  = parseFloat(document.getElementById('rcda-s6-alloc-pct')?.value);
+  const flat = document.getElementById('rcda-s6-alloc-flat')?.value;
+  const bon  = parseFloat(document.getElementById('rcda-s6-bonus-rate')?.value);
+  const s7v  = document.getElementById('rcda-s7-investment');
+  const src  = document.getElementById('rcda-s7-asset-source')?.value;
+  if (!isNaN(pct))  window._vbState.s6AllocPct  = pct;
+  if (flat != null) window._vbState.s6AllocFlat = flat;
+  if (!isNaN(bon))  window._vbState.s6BonusRate = bon;
+  if (s7v) {
+    const v = parseFloat(s7v.value);
+    if (!isNaN(v) && v > 0) {
+      window._vbState.s7Inv = v;
+      window._vbState.s7IsDefault = s7v.dataset.isDefault === 'true';
+    }
+  }
+  if (src != null) window._vbState.s7AssetSrc = src;
+  window._vbState.allocType = _s6AllocType;
+}
+
+function vbRecalc() {
+  _vbSave();
+  renderBuilderPanel();
+}
+
+function renderBuilderPanel() {
+  var panel = document.getElementById('velomon-builder-panel');
+  if (!panel || !engineResults) return;
+
+  var _si = getRCDASInputs();
+  if (!_si || !_si.ira) {
+    panel.innerHTML = '<div style="padding:24px;text-align:center;color:var(--text-muted);font-size:13px;">Run analysis in Step 4 to activate the Strategy Builder.</div>';
+    return;
+  }
+
+  // Save any current input values before re-render
+  _vbSave();
+  var st = window._vbState;
+
+  // Pass state values directly to calcStrategyBuilder via _v override
+  _s6AllocType = st.allocType || 'pct';
+
+  var _r1 = engineResults.results[1];
+  var _s1stub = { totalTax: _r1 ? ((_r1.cumFed||0)+(_r1.cumState||0)) / Math.max(1, (_r1.years||[]).filter(function(y){return y.conversionAmt>0;}).length) : 0 };
+  // Attach state overrides so calcStrategyBuilder uses current values, not stale DOM
+  _si._v = {
+    s6BonusRate:  (st.s6BonusRate || 15) / 100,
+    s6AllocPct:   (st.s6AllocPct  || 40) / 100,
+    s6AllocFlat:  parseFloat(st.s6AllocFlat) || 0,
+    s7Inv:        st.s7Inv || 0,
+    s7IsDefault:  !st.s7Inv || st.s7Inv <= 0  // true only if user hasn't entered a value
+  };
+  var b = calcStrategyBuilder(_s1stub, null, null, _si);
+  veloBuilderResult = b;
+
+  var fmt = function(n){ return '$' + Math.round(Math.abs(n)).toLocaleString(); };
+  var pct = function(n){ return (n * 100).toFixed(1) + '%'; };
+
+  var toggleBtn = function(key, label, sub) {
+    return '<div class="sb-toggle ' + (builderState[key]?'active':'') + '" onclick="sbToggle(\'' + key + '\')">'
+      + '<div class="sb-toggle-check"></div>'
+      + '<div><div class="sb-toggle-lbl">' + label + '</div>'
+      + '<div style="font-size:11px;color:var(--text-muted);margin-top:2px;">' + sub + '</div>'
+      + '</div></div>';
+  };
+
+  var wfRow = function(label, amount, colorClass, barColor, barPct) {
+    return '<div class="sb-wf-row">'
+      + '<div class="sb-wf-label">' + label + '</div>'
+      + '<div class="sb-wf-amount ' + colorClass + '">' + amount + '</div>'
+      + (barColor ? '<div class="sb-wf-bar" style="background:' + barColor + ';width:' + Math.min(barPct||0,100)*1.4 + 'px;"></div>' : '<div style="min-width:140px;"></div>')
+      + '</div>';
+  };
+
+  // Build waterfall
+  var waterfall = wfRow('<strong>Full IRA Balance</strong>', fmt(b.ira), 'blue', null, 0);
+  if (b.useS5) {
+    waterfall += wfRow('IRA-LLC Strategy — Principal Discount (35%)', '&minus; ' + fmt(b.s5Reduction), 'neg', '#16a34a', b.s5Reduction/b.ira*100);
+    waterfall += '<div class="sb-wf-divider"></div>';
+    waterfall += wfRow('<strong>Adjusted Taxable Basis</strong>', fmt(b.taxableBasis), 'blue', null, 0);
+  }
+  waterfall += wfRow('Gross Conversion Tax' + (b.useS5 ? ' (on IRA-LLC adjusted basis)' : ''), fmt(b.grossTaxS5), 'red', '#b91c1c', b.grossTaxS5/b.ira*100);
+  if (b.useS6 && b.s6Bonus > 0) {
+    waterfall += wfRow('Bonus Allocation Strategy &mdash; Annuity Bonus Credit (' + fmt(b.s6Premium) + ' &times; ' + pct(b.s6BonusRate) + ')',
+      '&minus; ' + fmt(b.s6Bonus), 'neg', '#16a34a', b.s6Bonus/b.ira*100);
+    waterfall += '<div class="sb-wf-divider"></div>';
+    waterfall += wfRow('<strong>Tax After S6 Bonus</strong>', fmt(b.taxAfterS6), 'red', null, 0);
+  }
+  if (b.useS7 && b.s7Applied > 0) {
+    waterfall += wfRow('S7 &mdash; Depreciation Offset: ' + fmt(b.s7Inv) + ' invested &times; 5 = ' + fmt(b.s7Dep) + ' depreciation' + (b.s7NOL > 0 ? ' (Y1: ' + fmt(b.s7Y1Usable||b.s7Applied) + ' &middot; NOL: ' + fmt(b.s7NOL) + ')' : ' (full Y1 offset)'),
+      '&minus; ' + fmt(b.s7Applied) + ' income', 'neg', '#16a34a', b.s7Applied/b.ira*100);
+  }
+
+  var activeLabels = [b.useS5?'S5':null, b.useS6?'S6':null, b.useS7?'S7':null].filter(Boolean);
+  var comboLabel = activeLabels.length ? activeLabels.join(' + ') + ' Combined' : 'No Strategies Selected &mdash; Toggle Above';
+  var zeroTax = b.netTax <= 100;
+
+  var nolNote = (b.useS7 && b.s7NOL > 0) ? '<div style="background:#eff6ff;border:1px solid #93c5fd;border-radius:8px;padding:12px 16px;margin-top:12px;font-size:12px;color:#1e3a8a;line-height:1.65;"><strong>&dagger; Depreciation Carryforward:</strong> The <strong>' + fmt(b.s7NOL) + '</strong> exceeding the EBL cap (' + fmt(b.eblCap) + ') carries forward as NOL &mdash; offsets up to <strong>80%</strong> of taxable income each year, no expiration.</div>' : '';
+
+  var zeroBanner = zeroTax ? '<div style="background:linear-gradient(135deg,#f0fdf4,#dcfce7);border:2px solid #16a34a;border-radius:10px;padding:12px 18px;margin:12px 0 0;display:flex;align-items:center;gap:10px;"><span style="font-size:22px;">&#127881;</span><div><div style="font-weight:700;color:#15803d;font-size:13px;">Cost-Free Conversion Achieved</div><div style="font-size:11.5px;color:#166534;margin-top:2px;">Day One Roth Value = <strong>' + fmt(b.d1rv) + '</strong> &mdash; 100% of the IRA balance.</div></div></div>' : '';
+
+  // S6 inputs (always use rcda- prefixed IDs matching calcStrategyBuilder)
+  var s6Section = '';
+  if (b.useS6) {
+    var isPct = (st.allocType !== 'flat');
+    s6Section = '<div style="background:#fff8f0;border-top:1px solid #f0d8c0;padding:14px 28px;">'
+      + '<div style="font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--vorange);margin-bottom:10px;">Strategy 6 &mdash; Annuity Parameters</div>'
+      + '<div style="display:flex;gap:20px;flex-wrap:wrap;align-items:flex-end;">'
+      + '<div><div style="font-size:11px;color:var(--text-muted);margin-bottom:5px;">Allocation</div>'
+      + '<div style="display:flex;align-items:center;gap:6px;">'
+      + '<div style="display:flex;border:1.5px solid #e8d5c0;border-radius:6px;overflow:hidden;">'
+      + '<button onclick="setS6AllocType(\'pct\')" style="padding:6px 11px;border:none;background:' + (isPct?'var(--vorange)':'transparent') + ';color:' + (isPct?'#fff':'var(--text-muted)') + ';font-size:12px;font-weight:700;cursor:pointer;">%</button>'
+      + '<button onclick="setS6AllocType(\'flat\')" style="padding:6px 11px;border:none;background:' + (!isPct?'var(--vorange)':'transparent') + ';color:' + (!isPct?'#fff':'var(--text-muted)') + ';font-size:12px;font-weight:700;cursor:pointer;">$</button>'
+      + '</div>'
+      + '<div style="display:' + (isPct?'flex':'none') + ';align-items:center;gap:4px;">'
+      + '<input type="number" id="rcda-s6-alloc-pct" value="' + (st.s6AllocPct||40) + '" min="1" max="100" step="1" onchange="vbRecalc()" style="width:65px;padding:7px 10px;border:1.5px solid #e8d5c0;border-radius:6px;font-size:14px;font-weight:700;">'
+      + '<span style="font-size:12px;color:var(--text-muted);">%</span></div>'
+      + '<div style="display:' + (!isPct?'flex':'none') + ';align-items:center;gap:4px;">'
+      + '<span style="color:var(--text-muted);">$</span>'
+      + '<input type="number" id="rcda-s6-alloc-flat" value="' + (st.s6AllocFlat||'') + '" placeholder="e.g. 300000" min="0" step="1000" onchange="vbRecalc()" style="width:130px;padding:7px 10px;border:1.5px solid #e8d5c0;border-radius:6px;font-size:14px;font-weight:700;">'
+      + '</div></div></div>'
+      + '<div><div style="font-size:11px;color:var(--text-muted);margin-bottom:5px;">Bonus Rate</div>'
+      + '<div style="display:flex;align-items:center;gap:4px;">'
+      + '<input type="number" id="rcda-s6-bonus-rate" value="' + (st.s6BonusRate||15) + '" min="0" max="100" step="0.5" onchange="vbRecalc()" style="width:65px;padding:7px 10px;border:1.5px solid #e8d5c0;border-radius:6px;font-size:14px;font-weight:700;">'
+      + '<span style="font-size:12px;color:var(--text-muted);">%</span></div></div>'
+      + '<div style="font-size:12px;color:var(--text-muted);line-height:1.5;">Premium: <strong style="color:var(--vorange);">' + fmt(b.s6Premium) + '</strong> &rarr; Bonus: <strong style="color:#16a34a;">' + fmt(b.s6Bonus) + '</strong></div>'
+      + '</div></div>';
+  }
+
+  // S7 inputs
+  var s7Panel = '';
+  if (b.useS7) {
+    var assetOpts = (window.assets_in_global||[]).filter(function(a){return !a.isMirror;}).map(function(a){
+      return '<option value="' + a.id + '"' + (st.s7AssetSrc==a.id?' selected':'') + '>' + (a.label||a.type) + ' &mdash; $' + Math.round(a.bal||0).toLocaleString() + '</option>';
+    }).join('');
+    s7Panel = '<div class="sb-s7-detail">'
+      + '<div style="font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:#1e4d8c;margin-bottom:3px;">&#128202; S7 &mdash; Depreciation Offset Input</div>'
+      + '<div style="font-size:11.5px;color:var(--text-muted);margin-bottom:14px;">Client invests non-IRA cash &rarr; business entity &rarr; fully depreciable assets (&sect;168(k), 5:1 leverage)</div>'
+      + '<div style="display:flex;align-items:flex-end;gap:12px;flex-wrap:wrap;margin-bottom:14px;">'
+      + '<div style="flex:1;min-width:200px;">'
+      + '<div style="font-size:10px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;color:var(--text-muted);margin-bottom:5px;">Client Investment (non-IRA)' + (b.s7IsDefault?' <span style="color:var(--vorange);font-size:9px;font-weight:600;">&starf; Auto-calculated</span>':'') + '</div>'
+      + '<div style="display:flex;align-items:center;gap:8px;">'
+      + '<span style="font-size:14px;color:var(--text-muted);font-weight:700;">$</span>'
+      + '<input type="number" id="rcda-s7-investment" value="' + Math.round(b.s7Inv) + '" min="' + S7_FLOOR + '" step="1000" data-is-default="' + b.s7IsDefault + '" oninput="s7InputChanged(this)" onblur="s7InputBlur(this)" onfocus="this.select()" style="width:180px;padding:9px 12px;border:2px solid ' + (b.s7IsDefault?'var(--vorange)':'var(--vblue)') + ';border-radius:8px;font-size:15px;font-weight:700;color:var(--vblue-dark);">'
+      + '<span style="font-size:12px;color:var(--text-muted);">min ' + fmt(S7_FLOOR) + '</span>'
+      + '</div></div>'
+      + '<div style="display:flex;gap:10px;flex-wrap:wrap;">'
+      + '<div class="sb-s7-cell" style="min-width:110px;"><div class="sb-s7-cell-lbl">Depreciation (5&times;)</div><div class="sb-s7-cell-val">' + fmt(b.s7Dep) + '</div><div class="sb-s7-cell-sub">Total deductible</div></div>'
+      + '<div class="sb-s7-cell" style="min-width:110px;"><div class="sb-s7-cell-lbl">Yr 1 Offset Used</div><div class="sb-s7-cell-val" style="color:#16a34a;">' + fmt(b.s7Y1Usable||b.s7Applied) + '</div><div class="sb-s7-cell-sub">EBL cap: ' + fmt(b.eblCap) + '</div></div>'
+      + '<div class="sb-s7-cell" style="min-width:110px;"><div class="sb-s7-cell-lbl">NOL Carryforward</div><div class="sb-s7-cell-val" style="color:' + (b.s7NOL>0?'#1d4ed8':'#16a34a') + ';">' + (b.s7NOL>0?fmt(b.s7NOL):'None') + '</div><div class="sb-s7-cell-sub">' + (b.s7NOL>0?'Future years':'Full offset Yr 1') + '</div></div>'
+      + '<div class="sb-s7-cell" style="min-width:110px;"><div class="sb-s7-cell-lbl">Annual Cash Flow</div><div class="sb-s7-cell-val" style="color:#16a34a;">' + fmt(b.s7AnnualCF) + '/yr</div><div class="sb-s7-cell-sub">10% &times; 9 yrs</div></div>'
+      + '</div></div>'
+      + '<div style="margin-bottom:10px;">'
+      + '<label style="font-size:10px;font-weight:700;text-transform:uppercase;color:#1e4d8c;letter-spacing:.6px;display:block;margin-bottom:5px;">Fund S7 investment from</label>'
+      + '<select id="rcda-s7-asset-source" onchange="_vbSave()" style="padding:7px 12px;border:1.5px solid #dbeafe;border-radius:7px;font-size:13px;font-weight:600;color:var(--vblue-dark);background:#fff;min-width:220px;">'
+      + '<option value="">— Select account —</option>' + assetOpts
+      + '</select></div>'
+      + '<div class="sb-s7-warning">&#9888;&#65039; <span><strong>Non-IRA funds preferred.</strong>'
+      + (b.s7NOL>0?' NOL of <strong>' + fmt(b.s7NOL) + '</strong> offsets future ordinary income.':'')
+      + ' Cash flow of <strong>' + fmt(b.s7AnnualCF) + '/yr</strong> added as ordinary income for 9 years.</span></div>'
+      + '</div>';
+  }
+
+  var footer = activeLabels.length ? '<div style="padding:14px 28px;background:#f0f4ff;border-top:1px solid #e2e8f0;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;">'
+    + '<div style="font-size:12px;color:#6b7280;">Active: <strong style="color:#184274;">' + activeLabels.join(' + ') + '</strong>'
+    + (b.useS7?' &middot; Cash flow <strong>$' + Math.round(b.s7AnnualCF||0).toLocaleString() + '/yr</strong> &times; 9 yrs':'')
+    + '</div>'
+    + '<button onclick="runVelomonScenario(true)" style="background:var(--vblue-dark);color:#fff;border:none;border-radius:8px;padding:9px 20px;font-size:13px;font-weight:700;cursor:pointer;">&#9654; Update Lifetime Projection</button>'
+    + '</div>' : '';
+
+  panel.innerHTML = '<div class="sb-panel">'
+    + '<div class="sb-header">'
+    + '<div style="font-size:26px;flex-shrink:0;position:relative;z-index:1;">&#11088;</div>'
+    + '<div class="sb-header-txt"><h3>Velomon Strategy Builder</h3>'
+    + '<p>Toggle strategies below &mdash; S5 applied first, S6 second, S7 last</p></div>'
+    + '<div class="sb-result-pill">'
+    + '<div class="srp-lbl">Net Conversion Tax</div>'
+    + '<div class="srp-val">' + fmt(b.netTax) + '</div>'
+    + '<div class="srp-sub">' + pct(b.effCost) + ' of IRA &nbsp;&middot;&nbsp; D1RV ' + fmt(b.d1rv) + '</div>'
+    + '</div></div>'
+    + '<div class="sb-toggles">'
+    + toggleBtn('s5','Strategy 5','Reduce: IRA-LLC &mdash; 35% valuation discount')
+    + toggleBtn('s6','Strategy 6','Recover: Bonus Allocation Strategy')
+    + toggleBtn('s7','Strategy 7','Offset: Bonus Depreciation Strategy')
+    + '</div>'
+    + s6Section
+    + '<div class="sb-waterfall">'
+    + '<div style="font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--text-muted);margin-bottom:12px;">' + comboLabel + '</div>'
+    + waterfall
+    + '<div class="sb-wf-total"><div>'
+    + '<div class="sb-wf-total-lbl">Net Conversion Tax</div>'
+    + '<div class="sb-wf-total-d1rv">Day One Roth Value: <strong>' + fmt(b.d1rv) + '</strong> &nbsp;&middot;&nbsp; Effective cost: ' + pct(b.effCost) + ' of IRA</div>'
+    + '</div><div class="sb-wf-total-val">' + fmt(b.netTax) + '</div></div>'
+    + zeroBanner + nolNote
+    + '</div>'
+    + s7Panel
+    + footer
+    + '</div>';
+}
+
+
+// Debounced recalculate — called by S6 input onchange (not oninput)
+// so the panel re-renders only when the user finishes typing
+function vbRecalc() {
+  clearTimeout(window._vbRecalcTimer);
+  window._vbRecalcTimer = setTimeout(function() {
+    renderBuilderPanel();
+  }, 50);
+}
+
+// Run only the Velomon scenario (strategyIdx 5 = S5 conversion rules) 
+// and update the display without re-running all strategies
+function runVelomonScenario() {
+  if (!engineResults) return;
+  // If no strategies selected: clear Velomon result and update display
+  if (!builderState.s5 && !builderState.s6 && !builderState.s7) {
+    engineResults.results[7] = undefined;
+    veloBuilderResult = null;
+    renderDecisionPanel(engineResults.results, engineResults.bestIdx);
+    return;
+  }
+  if (!veloBuilderResult) return;
+  const b = veloBuilderResult;
+  const activeLabels = [b.useS5?'S5':null,b.useS6?'S6':null,b.useS7?'S7':null].filter(Boolean);
+  if (!activeLabels.length) return;
+
+  const prof      = engineResults.prof;
+  const assets_in = JSON.parse(JSON.stringify(window.assets_in_global || []));
+  const incomes   = JSON.parse(JSON.stringify(window.incomes_global || []));
+
+  // Build S7 parameters
+  const s7Inv     = b.useS7 ? b.s7Inv : 0;
+  const s7AnnCF   = b.useS7 ? b.s7AnnualCF : 0;
+  const s7NOL     = b.useS7 ? b.s7NOL : 0;
+  const s7Y1      = b.useS7 ? (b.s7Y1Usable || b.s7Applied) : 0;
+
+  // Deduct S7 investment from source asset
+  if (b.useS7 && s7Inv > 0) {
+    const sourceId = document.getElementById('rcda-s7-asset-source')?.value;
+    if (sourceId) {
+      const srcAsset = assets_in.find(a => String(a.id) === String(sourceId));
+      if (srcAsset) srcAsset.bal = Math.max(0, (srcAsset.bal||0) - s7Inv);
+    }
+  }
+
+  // Inject S7 cash flow as 'other' income for 9 years starting yr 1
+  if (b.useS7 && s7AnnCF > 0) {
+    const startAge = prof.p1Age + 1;
+    const endAge   = prof.p1Age + 9;
+    incomes.push({
+      id: 99901,
+      type: 'other',
+      label: 'S7 Equipment Lease Cash Flow',
+      amount: s7AnnCF,
+      startAge,
+      endAge,
+      taxType: 'ordinary',
+      inflation: 0,
+      owner: '1',
+    });
+  }
+
+  // Determine strategyIdx: use 5 (S5 rules) if S5 active, else 1 (single-year lump sum)
+  // The S6 bonus is handled via s6AllocPct/s6BonusRate params
+  const stratIdx = b.useS5 ? 5 : 1;
+  const s6Alloc  = b.useS6 ? b.s6Premium / Math.max(1, b.d1rvForS6 || b.ira) : 0;
+  const s6Rate   = b.useS6 ? b.s6BonusRate : 0;
+
+  // Run with NOL carryforward — inject as extra param via global
+  window._veloS7NOL   = s7NOL;
+  window._veloS7Y1    = s7Y1;
+  window._veloS7Basis = b.taxableBasis;
+
+  try {
+    const veloResult = projectScenario(
+      prof, stratIdx, assets_in, incomes,
+      0, s6Alloc, s6Rate, 0, null, null
+    );
+    veloResult.isVeloCustom = true;
+    veloResult.veloLabel = activeLabels.join('+');
+
+    // Insert as results[7] (or replace if exists)
+    engineResults.results[7] = veloResult;
+    STRATEGY_META[7] = {
+      id: 7,
+      name: 'Velomon ' + activeLabels.join('+'),
+      shortName: 'Velomon',
+      color: '#F37C21',
+    };
+
+    // Re-render: call renderDecisionPanel directly (Velomon-aware)
+    // Do NOT call renderResults — it uses STRATEGY_META which now has index 7
+    const { prof: p, results, bestIdx } = engineResults;
+    renderDecisionPanel(results, bestIdx);
+    renderBuilderPanel();
+
+    // Scroll to decision panel
+    document.getElementById('decision-panel')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  } catch(e) {
+    console.error('Velomon scenario error:', e);
+    // Suppress alert for auto-runs; errors shown in console
+  } finally {
+    delete window._veloS7NOL;
+    delete window._veloS7Y1;
+    delete window._veloS7Basis;
+  }
+}
+
+
+// ── Sample Data ───────────────────────────────────────────────────────────
+function fillSampleData() {
+  function sv(id, val) { var el = document.getElementById(id); if (el) el.value = val; }
+
+  sv('p1_first','John'); sv('p1_last','Sample'); sv('p1_dob','1960-01-15');
+  sv('p1_terminal','90'); sv('p1_medicare_age','65');
+  var g1 = document.getElementById('p1_gm'); if (g1) g1.checked = true;
+  var fEl = document.getElementById('p1_filing');
+  if (fEl) { fEl.value = 'married'; onFilingChange(); }
+  sv('p2_first','Mary'); sv('p2_last','Sample'); sv('p2_dob','1962-03-20');
+  sv('p2_terminal','90'); sv('p2_medicare_age','65');
+  var g2 = document.getElementById('p2_gf'); if (g2) g2.checked = true;
+  var stEl = document.getElementById('res_state'); if (stEl) stEl.value = 'Indiana';
+  sv('global_growth_rate','7.0'); sv('global_fee_rate','1.0');
+  sv('std_ded_inflation','2.0'); sv('heir_rate','24');
+  onDobChange(); liveValidate();
+  completedSteps.add(1); goStep(2);
+
+  setTimeout(function() {
+    incomeItems.length = 0; incomeIdCounter = 0;
+    var il = document.getElementById('income-list'); if (il) il.innerHTML = '';
+    addIncomeOfType('ss');
+    addIncomeOfType('other');
+    setTimeout(function() {
+      var ss = incomeItems.filter(function(x){return x.type==='ss';});
+      var ot = incomeItems.filter(function(x){return x.type==='other';});
+      var s1=ss[0]?ss[0].id:1, s2=ss[1]?ss[1].id:2, o1=ot[0]?ot[0].id:3;
+      sv('ss-benefit-'+s1,'2800');
+      var nc1=document.getElementById('ss-cl-n-'+s1); if(nc1){nc1.checked=true;toggleSSClaiming(s1);}
+      setTimeout(function(){sv('ss-claim-age-'+s1,'67');},80);
+      sv('ss-benefit-'+s2,'1900');
+      var nc2=document.getElementById('ss-cl-n-'+s2); if(nc2){nc2.checked=true;toggleSSClaiming(s2);}
+      setTimeout(function(){sv('ss-claim-age-'+s2,'67');},80);
+      sv('other-label-'+o1,'Investment / Business Income');
+      sv('other-amount-'+o1,'60000');
+      sv('other-start-'+o1,'65'); sv('other-end-'+o1,'75');
+      var otx=document.getElementById('other-tax-'+o1); if(otx) otx.value='ordinary';
+      updateIncomeEmpty();
+      completedSteps.add(2);
+      setTimeout(function() {
+        goStep(3);
+        assetItems.length = 0; assetIdCounter = 0;
+        var aList = document.getElementById('asset-list'); if (aList) aList.innerHTML = '';
+        addAssetOfType('qualified');
+        addAssetOfType('nonqual');
+        addAssetOfType('roth');
+        setTimeout(function() {
+          var q=assetItems[0]?assetItems[0].id:1;
+          var n=assetItems[1]?assetItems[1].id:2;
+          var r=assetItems[2]?assetItems[2].id:3;
+          sv('asset-label-'+q,'Traditional IRA');
+          sv('asset-bal-'+q,'1000000');
+          sv('asset-growth-'+q,'7.0');
+          sv('asset-fee-'+q,'1.0');
+          sv('asset-label-'+n,'Brokerage Account');
+          sv('asset-bal-'+n,'200000');
+          sv('asset-growth-'+n,'6.0');
+          sv('asset-fee-'+n,'0.75');
+          sv('asset-label-'+r,'Roth IRA');
+          sv('asset-bal-'+r,'75000');
+          sv('asset-growth-'+r,'7.0');
+          sv('asset-fee-'+r,'0.5');
+          updateAssetEmpty();
+          if (typeof refreshAssetSummary==='function') refreshAssetSummary();
+          completedSteps.add(3); goStep(1);
+          var old=document.getElementById('sample-banner'); if(old) old.remove();
+          var b=document.createElement('div'); b.id='sample-banner';
+          b.style.cssText='position:fixed;bottom:20px;right:20px;background:#184274;color:#fff;padding:12px 20px;border-radius:10px;font-size:13px;font-weight:600;z-index:9999;box-shadow:0 4px 20px rgba(0,0,0,.3);display:flex;align-items:center;gap:10px;';
+          b.innerHTML='&#9989; Sample loaded &mdash; John &amp; Mary Sample, MFJ Indiana, $1M IRA<button onclick="this.parentNode.remove()" style="background:rgba(255,255,255,.2);border:none;color:#fff;border-radius:5px;padding:3px 8px;cursor:pointer;margin-left:6px;">&#10005;</button>';
+          document.body.appendChild(b);
+          setTimeout(function(){if(b.parentNode)b.remove();},8000);
+        }, 400);
+      }, 200);
+    }, 300);
+  }, 150);
+}
+
 
 // ── Init handled by inline autoLoad script at end of body ──
 
